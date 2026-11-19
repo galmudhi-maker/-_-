@@ -1,754 +1,816 @@
-/* =========================================
-   بيانات الموقع
-========================================= */
-
-let studentName = "";
-let studentClass = "";
-
-let currentQuestion = 0;
-let score = 0;
-
-let participationCount =
-  Number(localStorage.getItem("rightsParticipation") || 0);
-
-let stories =
-  JSON.parse(localStorage.getItem("rightsStories") || "[]");
+/* ==================================================
+   RIGHTS - SCRIPT.JS
+   ================================================== */
 
 
-/* =========================================
-   الأسئلة
-========================================= */
+/* ==================================================
+   DATA
+================================================== */
+
+const rights = [
+    {
+        icon: "🛡️",
+        title: "الحق في الأمان",
+        heading: "أن يعيش الطفل في بيئة آمنة",
+        text: "من حق كل طفل أن يعيش بعيدًا عن الأذى والعنف والاستغلال، وأن يجد من يحميه ويساعده عند الحاجة.",
+        example: "طلب المساعدة عند الشعور بالخطر ليس ضعفًا، بل وسيلة لحماية حقك في الأمان."
+    },
+
+    {
+        icon: "📚",
+        title: "الحق في التعليم",
+        heading: "أن يتعلم كل طفل",
+        text: "من حق الطفل الحصول على التعليم واكتساب المعرفة والمهارات التي تساعده على بناء مستقبله.",
+        example: "الذهاب إلى المدرسة والتعلم والمشاركة في الأنشطة التعليمية جزء من هذا الحق."
+    },
+
+    {
+        icon: "🤝",
+        title: "الحق في الاحترام",
+        heading: "أن يُعامل الطفل باحترام",
+        text: "من حق كل طفل أن يُعامل بكرامة واحترام، وألا يتعرض للتنمر أو الإهانة بسبب اختلافه.",
+        example: "احترام الآخرين وعدم السخرية منهم يساعد في بناء بيئة مدرسية أكثر أمانًا."
+    },
+
+    {
+        icon: "💬",
+        title: "الحق في التعبير",
+        heading: "أن يُسمع صوت الطفل",
+        text: "من حق الطفل التعبير عن رأيه ومشاعره وأفكاره بطريقة آمنة ومحترمة.",
+        example: "يمكنك التعبير عن رأيك في المدرسة أو المنزل مع احترام آراء الآخرين."
+    },
+
+    {
+        icon: "🎈",
+        title: "الحق في اللعب",
+        heading: "أن يكون للطفل وقت للعب",
+        text: "اللعب جزء مهم من حياة الطفل، ويساعده على التعلم والتواصل والإبداع والاستمتاع بوقته.",
+        example: "تخصيص وقت للراحة واللعب بعد الدراسة يساعد على تحقيق توازن صحي."
+    },
+
+    {
+        icon: "💛",
+        title: "الحق في الرعاية",
+        heading: "أن يحصل الطفل على الرعاية",
+        text: "من حق الطفل الحصول على الرعاية والاهتمام والدعم الذي يحتاج إليه لينمو بطريقة سليمة.",
+        example: "وجود أشخاص يهتمون بالطفل ويساعدونه عند الحاجة جزء أساسي من الرعاية."
+    }
+];
+
 
 const questions = [
 
-  {
-    question:
-      "طفل يتعرض للتنمر بشكل متكرر في المدرسة. ما التصرف الأفضل؟",
+    {
+        text: "إذا تعرّض طفل للتنمر في المدرسة، فما التصرف الصحيح؟",
 
-    answers: [
-      "أتجاهل الأمر تمامًا",
-      "أخبر شخصًا بالغًا موثوقًا وأطلب المساعدة",
-      "أشارك في التنمر حتى لا أكون وحدي"
-    ],
+        answers: [
+            "إخفاء الأمر وعدم إخبار أحد",
+            "إخبار شخص بالغ موثوق وطلب المساعدة",
+            "الرد على المتنمر بالتنمر",
+            "تجاهل المشكلة دائمًا"
+        ],
 
-    correct: 1,
+        correct: 1
+    },
 
-    explanation:
-      "طلب المساعدة من شخص بالغ موثوق يساعد على حماية الطفل والتعامل مع المشكلة."
-  },
+    {
+        text: "أي مما يلي يمثل الحق في التعليم؟",
 
+        answers: [
+            "منع الطفل من الذهاب للمدرسة",
+            "إتاحة فرصة التعلم للطفل",
+            "حرمان الطفل من المشاركة",
+            "منع الطفل من طرح الأسئلة"
+        ],
 
-  {
-    question:
-      "طفلة لديها رأي مختلف وتريد التعبير عنه بطريقة محترمة. أي حق يرتبط بذلك؟",
+        correct: 1
+    },
 
-    answers: [
-      "الحق في التعبير",
-      "الحق في اللعب",
-      "الحق في الرعاية"
-    ],
+    {
+        text: "ماذا يعني الحق في التعبير؟",
 
-    correct: 0,
+        answers: [
+            "أن أفرض رأيي على الجميع",
+            "أن أعبّر عن رأيي بطريقة محترمة وآمنة",
+            "أن أرفض الاستماع للآخرين",
+            "أن أستخدم الإساءة للتعبير"
+        ],
 
-    explanation:
-      "للطفل الحق في التعبير عن آرائه ومشاعره بطريقة مناسبة وآمنة."
-  },
+        correct: 1
+    },
 
+    {
+        text: "لماذا يحتاج الطفل إلى وقت للعب؟",
 
-  {
-    question:
-      "طفل في عمر الدراسة يحتاج إلى فرصة للتعلم. ما الحق المرتبط بذلك؟",
+        answers: [
+            "لأنه لا يحتاج إلى الدراسة",
+            "لأن اللعب يساعد على النمو والتعلم والتواصل",
+            "لإلغاء جميع المسؤوليات",
+            "لعدم القيام بأي نشاط آخر"
+        ],
 
-    answers: [
-      "الحق في اللعب",
-      "الحق في التعليم",
-      "الحق في الأمان"
-    ],
+        correct: 1
+    },
 
-    correct: 1,
+    {
+        text: "أي تصرف يعكس احترام حقوق الآخرين؟",
 
-    explanation:
-      "التعليم من الحقوق الأساسية التي تساعد الطفل على النمو واكتساب المعرفة."
-  },
+        answers: [
+            "السخرية من اختلافاتهم",
+            "نشر أسرارهم",
+            "احترامهم والاستماع إليهم",
+            "استبعادهم من الأنشطة"
+        ],
 
-
-  {
-    question:
-      "أي موقف يعكس احترام الطفل؟",
-
-    answers: [
-      "السخرية من مشاعره",
-      "مقاطعته دائمًا",
-      "الاستماع إليه والتعامل معه بكرامة"
-    ],
-
-    correct: 2,
-
-    explanation:
-      "الاحترام يعني الاستماع للطفل ومعاملته بكرامة دون إهانة أو سخرية."
-  },
-
-
-  {
-    question:
-      "لماذا يحتاج الطفل إلى وقت للعب والراحة؟",
-
-    answers: [
-      "لأن اللعب والنشاط جزء مهم من نمو الطفل وراحته",
-      "لأنه لا يحتاج إلى التعلم",
-      "لأن المدرسة غير مهمة"
-    ],
-
-    correct: 0,
-
-    explanation:
-      "اللعب والراحة والنشاط المناسب للعمر جزء مهم من حياة الطفل ونموه."
-  }
+        correct: 2
+    }
 
 ];
 
 
-/* =========================================
-   التنقل
-========================================= */
+/* ==================================================
+   VARIABLES
+================================================== */
 
-function showPage(id) {
+let currentQuestion = 0;
+let score = 0;
 
-  document
-    .querySelectorAll(".page")
-    .forEach(page => page.classList.remove("active"));
+let studentName = "";
+let studentClass = "";
 
-  const page = document.getElementById(id);
+let quizStarted = false;
 
-  if (page) {
-    page.classList.add("active");
-  }
 
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
-  });
+/* ==================================================
+   PAGE NAVIGATION
+================================================== */
 
+function showPage(pageId) {
+
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    const target = document.getElementById(pageId);
+
+    if (!target) {
+        return;
+    }
+
+    target.classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    updateJourney(pageId);
 }
 
 
-/* =========================================
-   بدء التحدي
-========================================= */
+/* ==================================================
+   JOURNEY
+================================================== */
 
-function startQuiz() {
+function updateJourney(pageId) {
 
-  const name =
-    prompt("اكتبي اسمك لإصدار الشهادة:");
+    const steps = document.querySelectorAll(".journey-step");
 
-  if (!name || name.trim() === "") {
+    steps.forEach(step => {
+        step.classList.remove("active");
+        step.classList.remove("done");
+    });
 
-    alert("نحتاج اسمك حتى نضعه في الشهادة.");
+    let activeIndex = 0;
 
-    return;
-  }
+    if (pageId === "home") {
+        activeIndex = 0;
+    }
 
+    else if (pageId === "rights") {
+        activeIndex = 1;
+    }
 
-  const studentSection =
-    prompt("اكتبي شعبتك، مثال: 1/1");
+    else if (pageId === "challenge") {
+        activeIndex = 2;
+    }
 
-  if (!studentSection || studentSection.trim() === "") {
+    else if (pageId === "result") {
+        activeIndex = 3;
+    }
 
-    alert("اكتبي الشعبة أولًا.");
+    else if (pageId === "certificatePage") {
+        activeIndex = 4;
+    }
 
-    return;
-  }
+    else if (pageId === "about") {
+        activeIndex = 0;
+    }
 
+    steps.forEach((step, index) => {
 
-  studentName = name.trim();
+        if (index < activeIndex) {
+            step.classList.add("done");
+        }
 
-  studentClass = studentSection.trim();
+        if (index === activeIndex) {
+            step.classList.add("active");
+        }
 
-
-  currentQuestion = 0;
-
-  score = 0;
-
-  showPage("challenge");
-
-  loadQuestion();
+    });
 }
 
 
-/* =========================================
-   تشغيل التحدي عند فتح الصفحة
-========================================= */
+/* ==================================================
+   RIGHTS
+================================================== */
 
-document.addEventListener("DOMContentLoaded", function () {
+function openRight(index) {
 
-  updateHomeCount();
+    const right = rights[index];
 
-  loadStories();
+    if (!right) {
+        return;
+    }
 
-  setupStoryCounter();
+    const icon = document.getElementById("modalIcon");
+    const title = document.getElementById("modalTitle");
+    const heading = document.getElementById("modalHeading");
+    const text = document.getElementById("modalText");
+    const example = document.getElementById("modalExample");
 
-  /*
-   عند الضغط على "ابدئي التحدي"
-   يتم طلب الاسم والشعبة.
-  */
+    icon.textContent = right.icon;
 
-  const challengeButton =
-    document.querySelector(".primary-btn");
+    title.textContent = right.title;
+
+    heading.textContent = right.heading;
+
+    text.textContent = right.text;
+
+    example.innerHTML = `
+        <strong>في حياتنا</strong>
+        <br>
+        ${right.example}
+    `;
+
+    document.getElementById("rightModal").classList.add("show");
+
+    document.body.style.overflow = "hidden";
+}
+
+
+function closeRight() {
+
+    document.getElementById("rightModal").classList.remove("show");
+
+    document.body.style.overflow = "";
+}
+
+
+/* إغلاق النافذة عند الضغط خارجها */
+
+document.addEventListener("click", function(event) {
+
+    const modal = document.getElementById("rightModal");
+
+    if (
+        modal &&
+        event.target === modal
+    ) {
+        closeRight();
+    }
 
 });
 
 
-/* =========================================
-   تحميل السؤال
-========================================= */
+/* ==================================================
+   START QUIZ
+================================================== */
+
+function startQuiz() {
+
+    const name = prompt("اكتبي اسمك الكامل:");
+
+    if (!name || name.trim() === "") {
+        showToast("يجب كتابة الاسم لبدء التحدي.");
+        return;
+    }
+
+    const className = prompt("اكتبي شعبتك، مثل: 1/1");
+
+    if (!className || className.trim() === "") {
+        showToast("يجب كتابة الشعبة لبدء التحدي.");
+        return;
+    }
+
+    studentName = name.trim();
+    studentClass = className.trim();
+
+    currentQuestion = 0;
+    score = 0;
+
+    quizStarted = true;
+
+    document.getElementById("score").textContent = "0";
+
+    showPage("challenge");
+
+    loadQuestion();
+}
+
+
+/* ==================================================
+   LOAD QUESTION
+================================================== */
 
 function loadQuestion() {
 
-  const q = questions[currentQuestion];
+    if (currentQuestion >= questions.length) {
+        finishQuiz();
+        return;
+    }
 
-  document.getElementById("questionText").textContent =
-    q.question;
+    const question = questions[currentQuestion];
 
+    document.getElementById("questionLabel").textContent =
+        `المرحلة ${numberArabic(currentQuestion + 1)}`;
 
-  document.getElementById("questionNumber").textContent =
-    `السؤال ${currentQuestion + 1} من ${questions.length}`;
+    document.getElementById("questionProgress").textContent =
+        `${currentQuestion + 1} / ${questions.length}`;
 
+    document.getElementById("questionText").textContent =
+        question.text;
 
-  const percent =
-    Math.round(
-      ((currentQuestion + 1) / questions.length) * 100
-    );
+    const answersContainer =
+        document.getElementById("answers");
 
+    answersContainer.innerHTML = "";
 
-  document.getElementById("progressPercent").textContent =
-    `${percent}%`;
+    const feedback =
+        document.getElementById("feedback");
 
+    feedback.className = "feedback";
+    feedback.textContent = "";
 
-  document.getElementById("progressBar").style.width =
-    `${percent}%`;
+    question.answers.forEach((answer, index) => {
 
+        const button = document.createElement("button");
 
-  const answers =
-    document.getElementById("answers");
+        button.className = "answer";
 
-  answers.innerHTML = "";
+        button.textContent = answer;
 
+        button.onclick = function () {
+            selectAnswer(index, button);
+        };
 
-  q.answers.forEach((answer, index) => {
+        answersContainer.appendChild(button);
 
-    const button =
-      document.createElement("button");
+    });
 
-    button.className = "answer";
-
-    button.textContent = answer;
-
-    button.onclick =
-      () => selectAnswer(index, button);
-
-    answers.appendChild(button);
-
-  });
-
+    updateLevels();
 }
 
 
-/* =========================================
-   اختيار الإجابة
-========================================= */
+/* ==================================================
+   SELECT ANSWER
+================================================== */
 
-function selectAnswer(index, button) {
+function selectAnswer(index, selectedButton) {
 
-  const q = questions[currentQuestion];
+    const question = questions[currentQuestion];
 
-  const allButtons =
-    document.querySelectorAll(".answer");
+    const answerButtons =
+        document.querySelectorAll(".answer");
 
+    answerButtons.forEach(button => {
+        button.classList.add("disabled");
+    });
 
-  allButtons.forEach(btn => {
-    btn.disabled = true;
-  });
+    const feedback =
+        document.getElementById("feedback");
 
+    if (index === question.correct) {
 
-  if (index === q.correct) {
+        selectedButton.classList.add("correct");
 
-    score++;
+        score++;
 
-    button.classList.add("correct");
+        document.getElementById("score").textContent =
+            score;
 
-    showTemporaryMessage(
-      "إجابة صحيحة! 💙",
-      q.explanation
-    );
+        feedback.textContent =
+            "✓ إجابة صحيحة! ممتاز، نكمل الرحلة.";
 
-  } else {
-
-    button.classList.add("wrong");
-
-    allButtons[q.correct].classList.add("correct");
-
-    showTemporaryMessage(
-      "قريبة! 🌱",
-      q.explanation
-    );
-
-  }
-
-
-  setTimeout(() => {
-
-    currentQuestion++;
-
-    if (currentQuestion < questions.length) {
-
-      loadQuestion();
-
-    } else {
-
-      finishQuiz();
+        feedback.classList.add("show", "correct");
 
     }
 
-  }, 1800);
+    else {
 
+        selectedButton.classList.add("wrong");
+
+        answerButtons[question.correct]
+            .classList.add("correct");
+
+        feedback.textContent =
+            "✦ ليست الإجابة الصحيحة، لكن المعرفة رحلة. نكمل.";
+
+        feedback.classList.add("show", "wrong");
+    }
+
+    setTimeout(() => {
+
+        currentQuestion++;
+
+        loadQuestion();
+
+    }, 1200);
 }
 
 
-/* =========================================
-   رسالة مؤقتة
-========================================= */
+/* ==================================================
+   UPDATE LEVELS
+================================================== */
 
-function showTemporaryMessage(title, text) {
+function updateLevels() {
 
-  const old =
-    document.getElementById("feedback");
+    const levels =
+        document.querySelectorAll(".level");
 
-  if (old) old.remove();
+    levels.forEach((level, index) => {
 
+        level.classList.remove("active");
+        level.classList.remove("done");
 
-  const box =
-    document.createElement("div");
+        if (index < currentQuestion) {
+            level.classList.add("done");
+        }
 
-  box.id = "feedback";
+        if (index === currentQuestion) {
+            level.classList.add("active");
+        }
 
-  box.style.position = "fixed";
-  box.style.bottom = "25px";
-  box.style.left = "50%";
-  box.style.transform = "translateX(-50%)";
-  box.style.zIndex = "5000";
-
-  box.style.width = "min(500px, 90%)";
-
-  box.style.background = "#FFFFFF";
-
-  box.style.border = "1px solid #DCEAF5";
-
-  box.style.borderRadius = "18px";
-
-  box.style.padding = "15px 20px";
-
-  box.style.boxShadow =
-    "0 20px 50px rgba(25,50,77,.15)";
-
-  box.innerHTML = `
-    <strong style="color:#19324D;display:block;margin-bottom:4px;">
-      ${title}
-    </strong>
-
-    <span style="color:#718096;font-size:11px;line-height:1.8;">
-      ${text}
-    </span>
-  `;
-
-
-  document.body.appendChild(box);
-
+    });
 }
 
 
-/* =========================================
-   إنهاء التحدي
-========================================= */
+/* ==================================================
+   FINISH QUIZ
+================================================== */
 
 function finishQuiz() {
 
-  participationCount++;
+    document.getElementById("finalScore").textContent =
+        score;
 
-  localStorage.setItem(
-    "rightsParticipation",
-    participationCount
-  );
+    const resultMessage =
+        document.getElementById("resultMessage");
 
-  updateHomeCount();
+    if (score === 5) {
 
-
-  document.getElementById("finalScore").textContent =
-    score;
-
-
-  let message = "";
-
-  if (score === 5) {
-
-    message =
-      "رائع! إجاباتك تعكس وعيًا ممتازًا بحقوق الطفل. 💙";
-
-  } else if (score >= 3) {
-
-    message =
-      "نتيجة جميلة! لديكِ أساس جيد، ومعرفة الحقوق تزداد بالممارسة.";
-
-  } else {
-
-    message =
-      "بداية جيدة! اكتشفي قسم حقوقنا وتعرّفي أكثر على الحقوق الأساسية.";
-
-  }
-
-
-  document.getElementById("resultMessage").textContent =
-    message;
-
-
-  showPage("result");
-
-}
-
-
-/* =========================================
-   إعادة التحدي
-========================================= */
-
-function restartQuiz() {
-
-  currentQuestion = 0;
-
-  score = 0;
-
-  loadQuestion();
-
-  showPage("challenge");
-
-}
-
-
-/* =========================================
-   فتح الشهادة
-========================================= */
-
-function openCertificate() {
-
-  document.getElementById("certName").textContent =
-    studentName || "الطالبة";
-
-  document.getElementById("certClass").textContent =
-    studentClass || "1/1";
-
-  document.getElementById("certScore").textContent =
-    `${score} / ${questions.length}`;
-
-
-  document.getElementById("certNumber").textContent =
-    String(participationCount).padStart(3, "0");
-
-
-  showPage("certificatePage");
-
-}
-
-
-/* =========================================
-   حفظ PDF
-========================================= */
-
-async function saveCertificatePDF() {
-
-  const certificate =
-    document.getElementById("certificate");
-
-  const button =
-    event.currentTarget;
-
-  const oldText =
-    button.innerHTML;
-
-  button.innerHTML =
-    "جاري تجهيز الشهادة...";
-
-  button.disabled = true;
-
-
-  try {
-
-    const canvas =
-      await html2canvas(certificate, {
-
-        scale: 2,
-
-        useCORS: true,
-
-        backgroundColor: "#FFFFFF"
-
-      });
-
-
-    const image =
-      canvas.toDataURL("image/png");
-
-
-    const {
-      jsPDF
-    } = window.jspdf;
-
-
-    const pdf =
-      new jsPDF({
-
-        orientation: "landscape",
-
-        unit: "mm",
-
-        format: "a4"
-
-      });
-
-
-    pdf.addImage(
-      image,
-      "PNG",
-      0,
-      0,
-      297,
-      210
-    );
-
-
-    let safeName =
-      studentName
-        .replace(/[\\/:*?"<>|]/g, "")
-        .trim();
-
-
-    if (!safeName) {
-
-      safeName = "طالبة";
+        resultMessage.textContent =
+            "نتيجة كاملة! لديكِ معرفة ممتازة بحقوق الطفل.";
 
     }
 
+    else if (score >= 3) {
 
-    pdf.save(
-      `شهادة-حقوقنا-${safeName}.pdf`
+        resultMessage.textContent =
+            "نتيجة جميلة. لديكِ أساس جيد في معرفة حقوق الطفل.";
+
+    }
+
+    else {
+
+        resultMessage.textContent =
+            "بداية جيدة. اكتشفي الحقوق مرة أخرى ثم أعيدي التحدي.";
+
+    }
+
+    showPage("result");
+}
+
+
+/* ==================================================
+   RESTART QUIZ
+================================================== */
+
+function restartQuiz() {
+
+    currentQuestion = 0;
+
+    score = 0;
+
+    document.getElementById("score").textContent =
+        "0";
+
+    showPage("challenge");
+
+    loadQuestion();
+}
+
+
+/* ==================================================
+   CERTIFICATE
+================================================== */
+
+function openCertificate() {
+
+    if (!studentName) {
+        showToast("ابدئي التحدي أولًا للحصول على الشهادة.");
+        return;
+    }
+
+    document.getElementById("certName").textContent =
+        studentName;
+
+    document.getElementById("certClass").textContent =
+        studentClass;
+
+    document.getElementById("certScore").textContent =
+        `${score} / ${questions.length}`;
+
+    document.getElementById("certNumber").textContent =
+        generateCertificateNumber();
+
+    showPage("certificatePage");
+}
+
+
+/* ==================================================
+   CERTIFICATE NUMBER
+================================================== */
+
+function generateCertificateNumber() {
+
+    const number =
+        String(
+            Math.floor(Math.random() * 900) + 100
+        );
+
+    return number;
+}
+
+
+/* ==================================================
+   SAVE CERTIFICATE PDF
+================================================== */
+
+async function saveCertificatePDF() {
+
+    const certificate =
+        document.getElementById("certificate");
+
+    if (!certificate) {
+        return;
+    }
+
+    showToast("جاري تجهيز الشهادة...");
+
+    try {
+
+        const canvas =
+            await html2canvas(certificate, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: "#ffffff"
+            });
+
+        const imageData =
+            canvas.toDataURL("image/png");
+
+        const {
+            jsPDF
+        } = window.jspdf;
+
+        const pdf =
+            new jsPDF({
+                orientation: "landscape",
+                unit: "mm",
+                format: "a4"
+            });
+
+        const pageWidth =
+            pdf.internal.pageSize.getWidth();
+
+        const pageHeight =
+            pdf.internal.pageSize.getHeight();
+
+        const imageRatio =
+            canvas.width / canvas.height;
+
+        let width = pageWidth;
+        let height = width / imageRatio;
+
+        if (height > pageHeight) {
+
+            height = pageHeight;
+
+            width = height * imageRatio;
+
+        }
+
+        const x =
+            (pageWidth - width) / 2;
+
+        const y =
+            (pageHeight - height) / 2;
+
+        pdf.addImage(
+            imageData,
+            "PNG",
+            x,
+            y,
+            width,
+            height
+        );
+
+        const safeName =
+            studentName
+                .replace(/[\\/:*?"<>|]/g, "")
+                .trim();
+
+        pdf.save(
+            `شهادة_حقوقنا_${safeName}.pdf`
+        );
+
+        showToast("تم حفظ الشهادة بنجاح ✓");
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        showToast(
+            "تعذر حفظ PDF، يمكنك استخدام زر الطباعة."
+        );
+
+    }
+}
+
+
+/* ==================================================
+   TOAST
+================================================== */
+
+function showToast(message) {
+
+    const oldToast =
+        document.querySelector(".toast");
+
+    if (oldToast) {
+        oldToast.remove();
+    }
+
+    const toast =
+        document.createElement("div");
+
+    toast.className = "toast";
+
+    toast.textContent = message;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => {
+
+        toast.remove();
+
+    }, 2500);
+}
+
+
+/* ==================================================
+   ARABIC NUMBERS
+================================================== */
+
+function numberArabic(number) {
+
+    const arabicNumbers = [
+        "٠",
+        "١",
+        "٢",
+        "٣",
+        "٤",
+        "٥",
+        "٦",
+        "٧",
+        "٨",
+        "٩"
+    ];
+
+    return String(number)
+        .split("")
+        .map(char => {
+
+            if (!isNaN(char)) {
+                return arabicNumbers[Number(char)];
+            }
+
+            return char;
+
+        })
+        .join("");
+}
+
+
+/* ==================================================
+   DAILY RIGHT
+================================================== */
+
+function setDailyRight() {
+
+    const index =
+        new Date().getDate() % rights.length;
+
+    const right =
+        rights[index];
+
+    const title =
+        document.getElementById("dailyRightTitle");
+
+    const text =
+        document.getElementById("dailyRightText");
+
+    if (title) {
+        title.textContent =
+            right.title;
+    }
+
+    if (text) {
+        text.textContent =
+            right.text;
+    }
+}
+
+
+/* ==================================================
+   PARTICIPATION COUNTER
+================================================== */
+
+function updateParticipantCount() {
+
+    let count =
+        localStorage.getItem("rightsParticipants");
+
+    if (!count) {
+
+        count = 0;
+
+    }
+
+    document.getElementById("participantCount")
+        .textContent = count;
+}
+
+
+/* تسجيل مشاركة محلية عند إنهاء التحدي */
+
+function registerParticipation() {
+
+    let count =
+        Number(
+            localStorage.getItem("rightsParticipants") || 0
+        );
+
+    count++;
+
+    localStorage.setItem(
+        "rightsParticipants",
+        count
     );
 
-
-  } catch (error) {
-
-    console.error(error);
-
-    alert(
-      "تعذر إنشاء PDF. استخدمي زر الطباعة ثم اختاري حفظ كـ PDF."
-    );
-
-  }
-
-
-  button.innerHTML = oldText;
-
-  button.disabled = false;
-
+    updateParticipantCount();
 }
 
 
-/* =========================================
-   عداد الصفحة الرئيسية
-========================================= */
+/* ==================================================
+   INITIALIZATION
+================================================== */
 
-function updateHomeCount() {
+document.addEventListener("DOMContentLoaded", function () {
 
-  const count =
-    Number(
-      localStorage.getItem("rightsParticipation") || 0
-    );
+    setDailyRight();
 
-  const element =
-    document.getElementById("homeParticipation");
+    updateParticipantCount();
 
-  if (element) {
+    updateJourney("home");
 
-    element.textContent = count;
+});
 
-  }
 
-}
+/* ==================================================
+   REGISTER PARTICIPATION ON RESULT
+================================================== */
 
+const originalFinishQuiz =
+    finishQuiz;
 
-/* =========================================
-   القصص
-========================================= */
+finishQuiz = function () {
 
-function setupStoryCounter() {
+    registerParticipation();
 
-  const input =
-    document.getElementById("storyInput");
+    originalFinishQuiz();
 
-  const counter =
-    document.getElementById("charCount");
-
-  if (!input || !counter) return;
-
-
-  input.addEventListener("input", function () {
-
-    counter.textContent =
-      this.value.length;
-
-  });
-
-}
-
-
-/* =========================================
-   نشر قصة
-========================================= */
-
-function publishStory() {
-
-  const input =
-    document.getElementById("storyInput");
-
-  const text =
-    input.value.trim();
-
-
-  if (text.length < 15) {
-
-    alert(
-      "اكتبي موقفًا أو تجربة قصيرة لا تقل عن 15 حرفًا."
-    );
-
-    return;
-
-  }
-
-
-  const story = {
-
-    text: text,
-
-    date: new Date().toLocaleDateString("ar-SA")
-
-  };
-
-
-  stories.unshift(story);
-
-
-  localStorage.setItem(
-    "rightsStories",
-    JSON.stringify(stories)
-  );
-
-
-  input.value = "";
-
-  document.getElementById("charCount").textContent = "0";
-
-
-  loadStories();
-
-
-  alert(
-    "تمت إضافة قصتك إلى جدار الكلمات 💙"
-  );
-
-}
-
-
-/* =========================================
-   عرض القصص
-========================================= */
-
-function loadStories() {
-
-  const list =
-    document.getElementById("storiesList");
-
-  const count =
-    document.getElementById("storyCount");
-
-
-  if (!list || !count) return;
-
-
-  count.textContent =
-    stories.length;
-
-
-  if (stories.length === 0) {
-
-    list.innerHTML = `
-
-      <div class="empty-story">
-
-        <span>♡</span>
-
-        <p>
-          كوني أول من يترك كلمة جميلة هنا.
-        </p>
-
-      </div>
-
-    `;
-
-    return;
-
-  }
-
-
-  list.innerHTML = "";
-
-
-  stories.forEach((story, index) => {
-
-    const card =
-      document.createElement("div");
-
-    card.className =
-      "story-card";
-
-
-    card.innerHTML = `
-
-      <p>
-        ${escapeHTML(story.text)}
-      </p>
-
-      <small>
-        مشاركة رقم ${stories.length - index}
-        · ${story.date}
-      </small>
-
-    `;
-
-
-    list.appendChild(card);
-
-  });
-
-}
-
-
-/* =========================================
-   حماية النصوص
-========================================= */
-
-function escapeHTML(text) {
-
-  const div =
-    document.createElement("div");
-
-  div.textContent = text;
-
-  return div.innerHTML;
-
-}
+};
