@@ -1,0 +1,901 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --blue: #5B9BD5;
+  --blue-dark: #19324D;
+  --blue-light: #EAF6FF;
+  --yellow: #FFD86B;
+  --mint: #A8DCC8;
+  --white: #FFFFFF;
+  --gray: #64748B;
+  --border: #DCEAF5;
+}
+
+body {
+  font-family: "Cairo", sans-serif;
+  background:
+    radial-gradient(circle at top right, #EAF6FF 0%, transparent 35%),
+    radial-gradient(circle at bottom left, #F4FFFA 0%, transparent 35%),
+    #ffffff;
+
+  color: var(--blue-dark);
+  min-height: 100vh;
+}
+
+button,
+input {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+.page {
+  min-height: 100vh;
+}
+
+.screen {
+  display: none;
+  min-height: 100vh;
+  padding: 40px 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.screen.active {
+  display: flex;
+}
+
+
+/* الصفحة الرئيسية */
+
+.hero {
+  width: min(650px, 100%);
+  text-align: center;
+}
+
+.top-badge {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+
+  background: white;
+  border: 1px solid var(--border);
+
+  padding: 8px 17px;
+  border-radius: 50px;
+
+  color: var(--blue-dark);
+  font-size: 13px;
+  font-weight: 700;
+
+  box-shadow: 0 10px 30px rgba(91, 155, 213, 0.10);
+}
+
+.children-icon {
+  width: 82px;
+  height: 82px;
+
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: var(--yellow);
+
+  color: var(--blue-dark);
+
+  font-size: 38px;
+
+  box-shadow: 0 15px 35px rgba(255, 216, 107, 0.25);
+}
+
+.hero h1 {
+  font-size: clamp(48px, 12vw, 82px);
+  font-weight: 800;
+  color: var(--blue-dark);
+  line-height: 1;
+}
+
+.subtitle {
+  margin-top: 12px;
+  font-size: 20px;
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.intro {
+  max-width: 510px;
+  margin: 22px auto 30px;
+  line-height: 2;
+  color: var(--gray);
+  font-size: 15px;
+}
+
+.main-btn {
+  background: var(--blue);
+  color: white;
+
+  padding: 14px 28px;
+  border-radius: 14px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  box-shadow: 0 12px 25px rgba(91, 155, 213, 0.25);
+
+  transition: 0.25s;
+}
+
+.main-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 17px 30px rgba(91, 155, 213, 0.30);
+}
+
+.main-btn span {
+  margin-right: 8px;
+}
+
+.full {
+  width: 100%;
+}
+
+.mini-info {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  margin-top: 38px;
+}
+
+.mini-info div {
+  display: flex;
+  flex-direction: column;
+}
+
+.mini-info strong {
+  font-size: 24px;
+  color: var(--blue-dark);
+}
+
+.mini-info span {
+  font-size: 12px;
+  color: var(--gray);
+}
+
+
+/* التسجيل */
+
+.form-card,
+.success-card,
+.final-card {
+  width: min(480px, 100%);
+
+  background: rgba(255,255,255,0.95);
+
+  border: 1px solid var(--border);
+
+  border-radius: 25px;
+
+  padding: 35px;
+
+  box-shadow: 0 25px 70px rgba(25, 50, 77, 0.08);
+
+  text-align: center;
+}
+
+.small-icon {
+  width: 50px;
+  height: 50px;
+  margin: auto;
+
+  border-radius: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--blue-light);
+  color: var(--blue);
+
+  font-size: 24px;
+}
+
+.form-card h2,
+.success-card h2,
+.final-card h2 {
+  margin-top: 18px;
+  color: var(--blue-dark);
+}
+
+.form-card p {
+  color: var(--gray);
+  font-size: 14px;
+  margin: 8px 0 28px;
+}
+
+.form-card label {
+  display: block;
+  text-align: right;
+
+  margin: 16px 0 7px;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-card input {
+  width: 100%;
+
+  padding: 14px;
+
+  border: 1px solid var(--border);
+  border-radius: 12px;
+
+  outline: none;
+
+  color: var(--blue-dark);
+
+  background: #FAFDFF;
+}
+
+.form-card input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(91,155,213,0.10);
+}
+
+.back-btn {
+  display: block;
+
+  margin: 15px auto 0;
+
+  background: transparent;
+
+  color: var(--gray);
+
+  font-size: 13px;
+}
+
+
+/* اختيار الحقوق */
+
+.section-header {
+  width: min(900px, 100%);
+  margin-bottom: 25px;
+}
+
+.section-header .small-label {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.section-header h2 {
+  margin-top: 5px;
+  font-size: 30px;
+  color: var(--blue-dark);
+}
+
+.section-header p {
+  color: var(--gray);
+  margin-top: 6px;
+}
+
+.rights-grid {
+  width: min(900px, 100%);
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 15px;
+}
+
+.right-card {
+  text-align: right;
+
+  background: white;
+
+  border: 1px solid var(--border);
+
+  border-radius: 20px;
+
+  padding: 23px;
+
+  min-height: 165px;
+
+  transition: 0.25s;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.right-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--blue);
+  box-shadow: 0 15px 35px rgba(91,155,213,0.13);
+}
+
+.right-card span {
+  display: block;
+  font-size: 31px;
+  margin-bottom: 15px;
+}
+
+.right-card strong {
+  display: block;
+  color: var(--blue-dark);
+  font-size: 16px;
+}
+
+.right-card small {
+  display: block;
+  color: var(--gray);
+  margin-top: 6px;
+  line-height: 1.7;
+}
+
+.wall-preview {
+  width: min(900px, 100%);
+
+  margin-top: 20px;
+
+  padding: 18px 22px;
+
+  background: var(--blue-light);
+
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wall-preview div {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.wall-preview strong {
+  font-size: 22px;
+  color: var(--blue);
+}
+
+.wall-preview p {
+  color: var(--gray);
+  font-size: 13px;
+}
+
+
+/* النجاح */
+
+.success-circle {
+  width: 80px;
+  height: 80px;
+
+  margin: 0 auto 20px;
+
+  border-radius: 50%;
+
+  background: var(--mint);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 35px;
+  color: #275A4A;
+}
+
+.small-label {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.success-card p {
+  color: var(--gray);
+  line-height: 1.9;
+  margin: 10px 0 20px;
+}
+
+.impact-box {
+  background: var(--blue-light);
+
+  border-radius: 16px;
+
+  padding: 15px;
+
+  margin-bottom: 20px;
+}
+
+.impact-box span {
+  display: block;
+  color: var(--gray);
+  font-size: 11px;
+}
+
+.impact-box strong {
+  display: block;
+  color: var(--blue-dark);
+  margin-top: 4px;
+}
+
+
+/* الشهادة */
+
+.certificate-wrapper {
+  width: min(850px, 100%);
+}
+
+.certificate {
+  position: relative;
+
+  width: 100%;
+  aspect-ratio: 1.414 / 1;
+
+  background: white;
+
+  border: 12px solid #F5FAFD;
+
+  outline: 2px solid var(--blue);
+
+  box-shadow: 0 25px 70px rgba(25,50,77,0.12);
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  color: var(--blue-dark);
+}
+
+.certificate::before {
+  content: "";
+
+  position: absolute;
+  inset: 15px;
+
+  border: 1px solid #CFE3F1;
+
+  pointer-events: none;
+}
+
+.certificate-decoration {
+  position: absolute;
+
+  width: 170px;
+  height: 170px;
+
+  border-radius: 50%;
+
+  opacity: 0.8;
+}
+
+.top-left {
+  top: -110px;
+  left: -100px;
+  background: var(--yellow);
+}
+
+.bottom-right {
+  bottom: -115px;
+  right: -105px;
+  background: var(--mint);
+}
+
+.certificate-top {
+  display: flex;
+  justify-content: space-between;
+
+  padding: 28px 40px;
+
+  position: relative;
+  z-index: 2;
+}
+
+.certificate-mark {
+  color: var(--blue);
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.date {
+  color: var(--gray);
+  font-size: 11px;
+}
+
+.certificate-content {
+  text-align: center;
+
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  z-index: 2;
+}
+
+.certificate-symbol {
+  width: 42px;
+  height: 42px;
+
+  background: var(--yellow);
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 22px;
+
+  margin-bottom: 7px;
+}
+
+.certificate h3 {
+  font-size: 27px;
+  margin: 0;
+
+  color: var(--blue-dark);
+}
+
+.certificate-event {
+  font-size: 12px;
+  color: var(--blue);
+  margin-top: 3px;
+}
+
+.line {
+  width: 90px;
+  height: 2px;
+
+  background: var(--yellow);
+
+  margin: 10px 0;
+}
+
+.presented {
+  color: var(--gray);
+  font-size: 10px;
+}
+
+.certificate h1 {
+  font-size: clamp(25px, 5vw, 42px);
+
+  margin: 4px 0;
+
+  color: var(--blue-dark);
+
+  font-weight: 800;
+}
+
+.student-class {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  background: var(--blue-light);
+
+  padding: 4px 15px;
+
+  border-radius: 30px;
+
+  font-size: 10px;
+}
+
+.student-class span {
+  color: var(--gray);
+}
+
+.student-class strong {
+  color: var(--blue-dark);
+}
+
+.certificate-message {
+  max-width: 520px;
+
+  margin: 13px auto 8px;
+
+  color: var(--gray);
+
+  font-size: 10px;
+
+  line-height: 1.9;
+}
+
+.certificate-message strong {
+  color: var(--blue-dark);
+}
+
+.certificate-number {
+  font-size: 8px;
+  color: #8295A7;
+}
+
+.certificate-footer {
+  position: relative;
+  z-index: 2;
+
+  padding: 15px 40px 25px;
+
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 8px;
+}
+
+.certificate-footer div {
+  display: flex;
+  flex-direction: column;
+}
+
+.certificate-footer strong {
+  color: var(--blue-dark);
+}
+
+.certificate-footer span {
+  color: var(--gray);
+  margin-top: 2px;
+}
+
+.creator {
+  text-align: left;
+}
+
+
+/* أزرار الشهادة */
+
+.certificate-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+
+  margin-top: 22px;
+}
+
+.pdf-btn,
+.print-btn {
+  padding: 12px 23px;
+
+  border-radius: 12px;
+
+  font-weight: 700;
+}
+
+.pdf-btn {
+  background: var(--blue);
+  color: white;
+
+  box-shadow: 0 10px 20px rgba(91,155,213,0.20);
+}
+
+.print-btn {
+  background: var(--yellow);
+  color: var(--blue-dark);
+}
+
+
+/* النهاية */
+
+.final-heart {
+  width: 75px;
+  height: 75px;
+
+  margin: auto;
+
+  border-radius: 50%;
+
+  background: var(--yellow);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 34px;
+}
+
+.final-card p {
+  color: var(--gray);
+  line-height: 1.9;
+  margin: 12px 0;
+}
+
+.final-card strong {
+  color: var(--blue-dark);
+}
+
+.final-wall {
+  background: var(--blue-light);
+
+  border-radius: 18px;
+
+  padding: 20px;
+
+  margin: 20px 0;
+}
+
+.counter {
+  display: flex;
+  flex-direction: column;
+}
+
+.counter strong {
+  color: var(--blue);
+  font-size: 35px;
+}
+
+.counter span {
+  color: var(--gray);
+  font-size: 12px;
+}
+
+.rights-result {
+  margin-top: 10px;
+}
+
+.rights-result span {
+  display: inline-block;
+
+  background: white;
+
+  padding: 7px 16px;
+
+  border-radius: 30px;
+
+  color: var(--blue-dark);
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.final-quote {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.creator-box {
+  border-top: 1px solid var(--border);
+
+  padding-top: 15px;
+
+  margin-top: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.creator-box span,
+.creator-box small {
+  color: var(--gray);
+  font-size: 10px;
+}
+
+.creator-box strong {
+  margin: 3px 0;
+}
+
+
+/* الجوال */
+
+@media (max-width: 700px) {
+
+  .screen {
+    padding: 25px 15px;
+  }
+
+  .rights-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .right-card {
+    padding: 16px;
+    min-height: 150px;
+  }
+
+  .section-header h2 {
+    font-size: 25px;
+  }
+
+  .certificate {
+    aspect-ratio: auto;
+    min-height: 500px;
+  }
+
+  .certificate-top {
+    padding: 25px;
+  }
+
+  .certificate-footer {
+    padding: 15px 25px 25px;
+  }
+
+  .certificate-message {
+    padding: 0 20px;
+  }
+
+  .certificate-actions {
+    flex-direction: column;
+  }
+
+  .pdf-btn,
+  .print-btn {
+    width: 100%;
+  }
+
+  .wall-preview {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 450px) {
+
+  .rights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h1 {
+    font-size: 55px;
+  }
+
+  .form-card,
+  .success-card,
+  .final-card {
+    padding: 25px 20px;
+  }
+}
+
+
+/* الطباعة */
+
+@media print {
+
+  body {
+    background: white;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  #certificate,
+  #certificate * {
+    visibility: visible;
+  }
+
+  #certificate {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    box-shadow: none;
+
+    border: 12px solid #F5FAFD;
+
+    outline: 2px solid #5B9BD5;
+  }
+
+  .certificate-actions,
+  .back-btn {
+    display: none !important;
+  }
+}
