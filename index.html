@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>حقوقنا | اليوم العالمي للطفل</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="style.css">
+<title>حقوقنا | صوتنا · أثرنا · مستقبلنا</title>
 
-  <!-- مكتبة PDF -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 </head>
 
+
 <body>
+
 
 <!-- =========================
      NAVBAR
@@ -21,736 +25,1159 @@
 
 <header class="navbar">
 
-  <div class="logo" onclick="showPage('home')">
-    <div class="logo-shape">♡</div>
-    <span>حقوقنا</span>
-  </div>
+<div class="brand" onclick="showPage('home')">
 
-  <nav>
-    <button onclick="showPage('home')">الرئيسية</button>
-    <button onclick="showPage('rights')">حقوقنا</button>
-    <button onclick="showPage('challenge')">تحدّي حقوقنا</button>
-    <button onclick="showPage('stories')">صوتك له أثر</button>
-    <button onclick="showPage('about')">عن المشروع</button>
-  </nav>
+<div class="brand-icon">
+♡
+</div>
+
+<div>
+<strong>حقوقنا</strong>
+<small>صوتنا · أثرنا</small>
+</div>
+
+</div>
+
+
+<nav>
+
+<button onclick="showPage('home')">
+الرئيسية
+</button>
+
+<button onclick="showPage('rights')">
+حقوقنا
+</button>
+
+<button onclick="showPage('challenge')">
+التحدي
+</button>
+
+<button onclick="showPage('stories')">
+صوتك له أثر
+</button>
+
+<button onclick="showPage('about')">
+عن المشروع
+</button>
+
+</nav>
 
 </header>
+
+
+
+<!-- =========================
+     JOURNEY BAR
+========================= -->
+
+<div class="journey">
+
+<div class="journey-step active">
+<span>01</span>
+<p>البداية</p>
+</div>
+
+<div class="journey-line"></div>
+
+<div class="journey-step">
+<span>02</span>
+<p>اكتشفي</p>
+</div>
+
+<div class="journey-line"></div>
+
+<div class="journey-step">
+<span>03</span>
+<p>اختبري</p>
+</div>
+
+<div class="journey-line"></div>
+
+<div class="journey-step">
+<span>04</span>
+<p>شاركي</p>
+</div>
+
+<div class="journey-line"></div>
+
+<div class="journey-step">
+<span>05</span>
+<p>شهادتك</p>
+</div>
+
+</div>
+
 
 
 <main>
 
 
-<!-- =========================
+<!-- =====================================================
      HOME
-========================= -->
+===================================================== -->
 
 <section id="home" class="page active">
 
-  <div class="hero">
+<div class="home">
 
-    <div class="hero-content">
+<div class="home-text">
 
-      <span class="date-pill">
-        20 نوفمبر · اليوم العالمي للطفل
-      </span>
-
-      <h1>
-        حقوقنا
-        <span>صوتنا · أثرنا · مستقبلنا</span>
-      </h1>
-
-      <p>
-        مساحة رقمية تفاعلية نتعرّف فيها على حقوق الطفل،
-        نختبر معرفتنا، ونشارك كلمات وتجارب تصنع أثرًا.
-      </p>
-
-      <div class="hero-buttons">
-
-        <button class="primary-btn"
-                onclick="showPage('challenge')">
-          ابدئي التحدّي ✦
-        </button>
-
-        <button class="secondary-btn"
-                onclick="showPage('rights')">
-          اكتشفي حقوقك
-        </button>
-
-      </div>
-
-    </div>
+<div class="date-badge">
+20 نوفمبر · اليوم العالمي للطفل
+</div>
 
 
-    <div class="hero-art">
+<h1>
+حقوقنا
+</h1>
 
-      <div class="floating-card card-one">
-        <span>🛡️</span>
-        <b>الأمان</b>
-      </div>
-
-      <div class="floating-card card-two">
-        <span>💬</span>
-        <b>التعبير</b>
-      </div>
-
-      <div class="floating-card card-three">
-        <span>📚</span>
-        <b>التعليم</b>
-      </div>
-
-      <div class="big-circle">
-        <span>♡</span>
-        <small>لكل طفل<br>حق</small>
-      </div>
-
-    </div>
-
-  </div>
+<h2>
+صوتنا · أثرنا · مستقبلنا
+</h2>
 
 
-  <div class="quick-section">
-
-    <div class="section-title">
-      <span>رحلتك في حقوقنا</span>
-      <h2>اختاري كيف تحبين المشاركة</h2>
-    </div>
+<p>
+مساحة رقمية تفاعلية نتعرف فيها على حقوق الطفل،
+نختبر معرفتنا، ونشارك كلمات وتجارب يمكن أن تصنع أثرًا.
+</p>
 
 
-    <div class="feature-grid">
+<div class="home-buttons">
 
-      <button class="feature-card blue-card"
-              onclick="showPage('rights')">
+<button class="primary-btn"
+onclick="startQuiz()">
 
-        <div class="feature-icon">🌱</div>
+ابدئي رحلتك
+<span>✦</span>
 
-        <h3>اكتشفي حقوقك</h3>
-
-        <p>
-          تعرّفي على أهم حقوق الطفل بطريقة بسيطة وتفاعلية.
-        </p>
-
-        <span class="arrow">←</span>
-
-      </button>
+</button>
 
 
-      <button class="feature-card yellow-card"
-              onclick="showPage('challenge')">
+<button class="outline-btn"
+onclick="showPage('rights')">
 
-        <div class="feature-icon">🎯</div>
+اكتشفي حقوقك
+←
 
-        <h3>تحدّي حقوقنا</h3>
+</button>
 
-        <p>
-          مواقف وأسئلة قصيرة اختبري فيها وعيك بحقوق الطفل.
-        </p>
-
-        <span class="arrow">←</span>
-
-      </button>
+</div>
 
 
-      <button class="feature-card mint-card"
-              onclick="showPage('stories')">
+<div class="mini-stats">
 
-        <div class="feature-icon">✍️</div>
+<div>
+<strong id="participantCount">0</strong>
+<span>مشاركة</span>
+</div>
 
-        <h3>صوتك له أثر</h3>
+<div>
+<strong>6</strong>
+<span>حقوق</span>
+</div>
 
-        <p>
-          اكتبي موقفًا أو تجربة أو كلمة يمكن أن تلهم غيرك.
-        </p>
+<div>
+<strong>5</strong>
+<span>مراحل</span>
+</div>
 
-        <span class="arrow">←</span>
+</div>
 
-      </button>
-
-    </div>
-
-  </div>
+</div>
 
 
-  <div class="stats-section">
 
-    <div>
-      <strong id="homeParticipation">0</strong>
-      <span>مشاركة على هذا الجهاز</span>
-    </div>
+<div class="hero-visual">
 
-    <div>
-      <strong>20</strong>
-      <span>نوفمبر</span>
-    </div>
+<div class="orbit orbit1"></div>
+<div class="orbit orbit2"></div>
 
-    <div>
-      <strong>6</strong>
-      <span>حقوق أساسية</span>
-    </div>
 
-  </div>
+<div class="hero-core">
+
+<div class="heart">
+♡
+</div>
+
+<strong>
+لكل طفل
+</strong>
+
+<span>
+حق
+</span>
+
+</div>
+
+
+<div class="floating-card fc1">
+
+<span>🛡️</span>
+
+<div>
+<strong>الأمان</strong>
+<small>حق أساسي</small>
+</div>
+
+</div>
+
+
+<div class="floating-card fc2">
+
+<span>💬</span>
+
+<div>
+<strong>التعبير</strong>
+<small>صوتك مهم</small>
+</div>
+
+</div>
+
+
+<div class="floating-card fc3">
+
+<span>📚</span>
+
+<div>
+<strong>التعليم</strong>
+<small>فرصة للجميع</small>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<!-- DAILY RIGHT -->
+
+<div class="daily-right">
+
+<div class="daily-icon">
+✦
+</div>
+
+<div>
+
+<span>
+حق اليوم
+</span>
+
+<h3 id="dailyRightTitle">
+الحق في التعبير
+</h3>
+
+<p id="dailyRightText">
+من حق الطفل أن يعبّر عن رأيه ومشاعره بطريقة آمنة ومحترمة.
+</p>
+
+</div>
+
+</div>
+
+
+
+<!-- MAIN FEATURES -->
+
+<div class="section-heading">
+
+<span>
+اختاري مسارك
+</span>
+
+<h2>
+رحلتك تبدأ من هنا
+</h2>
+
+</div>
+
+
+
+<div class="feature-grid">
+
+
+<button class="feature blue"
+onclick="showPage('rights')">
+
+<div class="feature-number">
+01
+</div>
+
+<div class="feature-icon">
+🔎
+</div>
+
+<h3>
+اكتشفي حقوقك
+</h3>
+
+<p>
+تعرفي على الحقوق الأساسية من خلال تجربة تفاعلية.
+</p>
+
+<span class="feature-arrow">
+←
+</span>
+
+</button>
+
+
+
+<button class="feature yellow"
+onclick="startQuiz()">
+
+<div class="feature-number">
+02
+</div>
+
+<div class="feature-icon">
+🧩
+</div>
+
+<h3>
+تحدّي حقوقنا
+</h3>
+
+<p>
+مواقف وأسئلة تختبر معرفتك بطريقة ممتعة.
+</p>
+
+<span class="feature-arrow">
+←
+</span>
+
+</button>
+
+
+
+<button class="feature mint"
+onclick="showPage('stories')">
+
+<div class="feature-number">
+03
+</div>
+
+<div class="feature-icon">
+✍🏻
+</div>
+
+<h3>
+صوتك له أثر
+</h3>
+
+<p>
+اكتبي تجربة أو موقفًا قد يساعد شخصًا آخر.
+</p>
+
+<span class="feature-arrow">
+←
+</span>
+
+</button>
+
+</div>
 
 </section>
 
 
 
-<!-- =========================
+
+
+<!-- =====================================================
      RIGHTS
-========================= -->
+===================================================== -->
 
 <section id="rights" class="page">
 
-  <div class="page-heading">
+<button class="back-btn"
+onclick="showPage('home')">
 
-    <span class="eyebrow">اكتشفي حقوقك</span>
+← الرئيسية
 
-    <h2>
-      حقوق الطفل ليست كلمات فقط
-    </h2>
-
-    <p>
-      لكل طفل حقوق تساعده على أن يعيش ويتعلم ويعبّر وينمو بأمان.
-    </p>
-
-  </div>
+</button>
 
 
-  <div class="rights-container">
+<div class="page-intro">
+
+<span>
+01 · اكتشفي
+</span>
+
+<h2>
+حقوقك أكبر من مجرد كلمة
+</h2>
+
+<p>
+اضغطي على أي حق واكتشفي معناه ومثالًا قريبًا من حياتنا.
+</p>
+
+</div>
 
 
-    <article class="right-item">
 
-      <div class="right-number">01</div>
+<div class="rights-orbit">
 
-      <div class="right-icon">🛡️</div>
+<div class="rights-center">
 
-      <div>
-        <h3>الحق في الأمان</h3>
-        <p>
-          أن يعيش الطفل في بيئة آمنة تحميه من الأذى والخطر.
-        </p>
-      </div>
+<span>
+♡
+</span>
 
-    </article>
+<strong>
+حقوقنا
+</strong>
 
+<small>
+لكل طفل حق
+</small>
 
-    <article class="right-item">
-
-      <div class="right-number">02</div>
-
-      <div class="right-icon">📚</div>
-
-      <div>
-        <h3>الحق في التعليم</h3>
-        <p>
-          أن يحصل كل طفل على فرصة للتعلم واكتساب المعرفة.
-        </p>
-      </div>
-
-    </article>
+</div>
 
 
-    <article class="right-item">
+<button class="right-bubble bubble1"
+onclick="openRight(0)">
 
-      <div class="right-number">03</div>
+🛡️
 
-      <div class="right-icon">🤝</div>
+<span>
+الأمان
+</span>
 
-      <div>
-        <h3>الحق في الاحترام</h3>
-        <p>
-          أن يُعامل الطفل بكرامة واحترام دون تمييز أو إهانة.
-        </p>
-      </div>
-
-    </article>
+</button>
 
 
-    <article class="right-item">
+<button class="right-bubble bubble2"
+onclick="openRight(1)">
 
-      <div class="right-number">04</div>
+📚
 
-      <div class="right-icon">💬</div>
+<span>
+التعليم
+</span>
 
-      <div>
-        <h3>الحق في التعبير</h3>
-        <p>
-          أن يستطيع الطفل التعبير عن رأيه ومشاعره بطريقة آمنة.
-        </p>
-      </div>
-
-    </article>
+</button>
 
 
-    <article class="right-item">
+<button class="right-bubble bubble3"
+onclick="openRight(2)">
 
-      <div class="right-number">05</div>
+🤝
 
-      <div class="right-icon">🎈</div>
+<span>
+الاحترام
+</span>
 
-      <div>
-        <h3>الحق في اللعب</h3>
-        <p>
-          أن يجد الطفل وقتًا للراحة واللعب والنشاط المناسب لعمره.
-        </p>
-      </div>
-
-    </article>
+</button>
 
 
-    <article class="right-item">
+<button class="right-bubble bubble4"
+onclick="openRight(3)">
 
-      <div class="right-number">06</div>
+💬
 
-      <div class="right-icon">💛</div>
+<span>
+التعبير
+</span>
 
-      <div>
-        <h3>الحق في الرعاية</h3>
-        <p>
-          أن يحصل الطفل على الرعاية والاهتمام والدعم الذي يحتاجه.
-        </p>
-      </div>
+</button>
 
-    </article>
 
-  </div>
+<button class="right-bubble bubble5"
+onclick="openRight(4)">
+
+🎈
+
+<span>
+اللعب
+</span>
+
+</button>
+
+
+<button class="right-bubble bubble6"
+onclick="openRight(5)">
+
+💛
+
+<span>
+الرعاية
+</span>
+
+</button>
+
+</div>
+
+
+
+<div id="rightInfo" class="right-info">
+
+<div class="right-info-icon">
+🛡️
+</div>
+
+<div>
+
+<span>
+الحق في الأمان
+</span>
+
+<h3>
+أن يعيش الطفل في بيئة آمنة
+</h3>
+
+<p>
+أن يعيش الطفل بعيدًا عن الأذى والخطر،
+وأن يجد من يساعده عندما يشعر بعدم الأمان.
+</p>
+
+<div class="life-example">
+
+<strong>
+في حياتنا
+</strong>
+
+<p>
+طلب المساعدة عند الشعور بالخطر ليس ضعفًا،
+بل طريقة لحماية الحق في الأمان.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
 
 </section>
 
 
 
-<!-- =========================
+
+
+<!-- =====================================================
      CHALLENGE
-========================= -->
+===================================================== -->
 
 <section id="challenge" class="page">
 
-  <div class="challenge-wrapper">
+<button class="back-btn"
+onclick="showPage('home')">
 
-    <div class="challenge-top">
+← الرئيسية
 
-      <div>
-
-        <span class="eyebrow">
-          تحدّي حقوقنا
-        </span>
-
-        <h2>
-          هل تعرفين حقوقك فعلًا؟
-        </h2>
-
-      </div>
-
-      <div class="score-box">
-        <span>النتيجة</span>
-        <strong id="score">0</strong>
-      </div>
-
-    </div>
+</button>
 
 
-    <div class="progress-area">
+<div class="challenge">
 
-      <div class="progress-info">
-        <span id="questionNumber">
-          السؤال 1 من 5
-        </span>
+<div class="challenge-header">
 
-        <span id="progressPercent">
-          20%
-        </span>
-      </div>
+<div>
 
-      <div class="progress">
-        <div id="progressBar"></div>
-      </div>
+<span>
+02 · اختبري معرفتك
+</span>
 
-    </div>
+<h2>
+تحدّي حقوقنا
+</h2>
+
+<p>
+خمس مواقف. خمس فرص لإثبات وعيك.
+</p>
+
+</div>
 
 
-    <div id="questionCard" class="question-card">
+<div class="score">
 
-      <div class="question-icon">
-        🧩
-      </div>
+<small>
+النقاط
+</small>
 
-      <span class="question-label">
-        ماذا ستفعلين؟
-      </span>
+<strong id="score">
+0
+</strong>
 
-      <h3 id="questionText">
-        جاري تحميل التحدي...
-      </h3>
+</div>
 
-      <div id="answers" class="answers"></div>
+</div>
 
-    </div>
 
-  </div>
+
+<div class="levels">
+
+<div class="level active">
+01
+</div>
+
+<div class="level-line"></div>
+
+<div class="level">
+02
+</div>
+
+<div class="level-line"></div>
+
+<div class="level">
+03
+</div>
+
+<div class="level-line"></div>
+
+<div class="level">
+04
+</div>
+
+<div class="level-line"></div>
+
+<div class="level">
+05
+</div>
+
+</div>
+
+
+
+<div class="question-card">
+
+<div class="question-top">
+
+<span id="questionLabel">
+المرحلة الأولى
+</span>
+
+<span id="questionProgress">
+1 / 5
+</span>
+
+</div>
+
+
+<div class="question-symbol">
+?
+</div>
+
+
+<h3 id="questionText">
+جاري تجهيز التحدي...
+</h3>
+
+
+<div id="answers"
+class="answers">
+</div>
+
+
+<div id="feedback"
+class="feedback">
+</div>
+
+</div>
+
+</div>
 
 </section>
 
 
 
-<!-- =========================
+
+
+<!-- =====================================================
      RESULT
-========================= -->
+===================================================== -->
 
 <section id="result" class="page">
 
-  <div class="result-card">
+<button class="back-btn"
+onclick="showPage('home')">
 
-    <div class="result-icon">
-      🏆
-    </div>
+← الرئيسية
 
-    <span class="eyebrow">
-      انتهى التحدّي
-    </span>
-
-    <h2>
-      أحسنتِ، انتهت رحلتك!
-    </h2>
-
-    <p id="resultMessage"></p>
-
-    <div class="final-score">
-
-      <span>نتيجتك</span>
-
-      <strong>
-        <span id="finalScore">0</span>/5
-      </strong>
-
-    </div>
+</button>
 
 
-    <div class="result-actions">
+<div class="result">
 
-      <button class="primary-btn"
-              onclick="openCertificate()">
-        احصلي على شهادتك 🏅
-      </button>
+<div class="result-burst">
+✦
+</div>
 
-      <button class="secondary-btn"
-              onclick="restartQuiz()">
-        إعادة التحدّي
-      </button>
 
-    </div>
+<span>
+اكتملت الرحلة
+</span>
 
-  </div>
+
+<h2>
+أنتِ صنعتِ أثرًا اليوم
+</h2>
+
+
+<div class="score-circle">
+
+<div>
+
+<strong id="finalScore">
+0
+</strong>
+
+<small>
+/ 5
+</small>
+
+</div>
+
+</div>
+
+
+<p id="resultMessage">
+</p>
+
+
+<div class="result-buttons">
+
+<button class="primary-btn"
+onclick="openCertificate()">
+
+احصلي على شهادتك
+🏅
+
+</button>
+
+
+<button class="outline-btn"
+onclick="restartQuiz()">
+
+↻ إعادة التحدي
+
+</button>
+
+</div>
+
+
+<div class="result-note">
+
+♡
+كل معرفة بحقوقنا هي خطوة نحو حماية أنفسنا والآخرين.
+
+</div>
+
+</div>
 
 </section>
 
 
 
-<!-- =========================
+
+
+<!-- =====================================================
      STORIES
-========================= -->
+===================================================== -->
 
 <section id="stories" class="page">
 
-  <div class="page-heading">
+<button class="back-btn"
+onclick="showPage('home')">
 
-    <span class="eyebrow">
-      صوتك له أثر
-    </span>
+← الرئيسية
 
-    <h2>
-      كل تجربة قد تكون بداية لغيرك
-    </h2>
-
-    <p>
-      اكتبي موقفًا أو تجربة أو كلمة تعتقدين أنها قد تساعد أو تلهم فتاة أخرى.
-    </p>
-
-  </div>
+</button>
 
 
-  <div class="story-layout">
+<div class="page-intro">
 
-    <div class="story-form">
+<span>
+03 · شاركي
+</span>
 
-      <div class="form-icon">
-        ✍️
-      </div>
+<h2>
+صوتك له أثر
+</h2>
 
-      <h3>
-        شاركي قصتك
-      </h3>
+<p>
+أحيانًا موقف صغير يعلّمنا شيئًا كبيرًا.
+اكتبي تجربتك واتركي أثرًا لطالبة أخرى.
+</p>
 
-      <p class="form-note">
-        لا تكتبي اسمك الكامل أو أي معلومات شخصية.
-      </p>
-
-
-      <textarea
-        id="storyInput"
-        maxlength="300"
-        placeholder="مثال: مررت بموقف جعلني أخاف من التعبير عن رأيي، لكنني تعلمت أن صوتي مهم..."
-      ></textarea>
+</div>
 
 
-      <div class="character-count">
-        <span id="charCount">0</span>/300
-      </div>
+
+<div class="story-layout">
 
 
-      <button class="primary-btn"
-              onclick="publishStory()">
-        أضيفي قصتك إلى الجدار
-      </button>
+<div class="story-form">
 
-    </div>
+<div class="story-icon">
+✍🏻
+</div>
 
+<h3>
+ما الموقف الذي غيّرك؟
+</h3>
 
-    <div class="story-wall">
-
-      <div class="wall-title">
-
-        <div>
-          <span class="eyebrow">
-            جدار الكلمات
-          </span>
-
-          <h3>
-            أصوات الطالبات
-          </h3>
-        </div>
-
-        <span id="storyCount">0</span>
-
-      </div>
+<p>
+اكتبي موقفًا مررتِ به أو شاهدته،
+وما الشيء الذي ساعدك على تجاوزه.
+</p>
 
 
-      <div id="storiesList" class="stories-list">
+<textarea
+id="storyInput"
+maxlength="300"
+placeholder="اكتبي تجربتك هنا..."
+></textarea>
 
-        <div class="empty-story">
-          <span>♡</span>
 
-          <p>
-            كوني أول من يترك كلمة جميلة هنا.
-          </p>
-        </div>
+<div class="textarea-bottom">
 
-      </div>
+<span>
+لا تكتبي اسمك أو معلومات شخصية.
+</span>
 
-    </div>
+<strong>
+<span id="charCount">0</span>/300
+</strong>
 
-  </div>
+</div>
+
+
+<button class="primary-btn full"
+onclick="publishStory()">
+
+أضيفي أثرك إلى الجدار
+✦
+
+</button>
+
+</div>
+
+
+
+<div class="wall">
+
+<div class="wall-header">
+
+<div>
+
+<span>
+جدار الأصوات
+</span>
+
+<h3>
+كلمات تركت أثرًا
+</h3>
+
+</div>
+
+<div id="storyCount"
+class="story-count">
+0
+</div>
+
+</div>
+
+
+<div id="storiesList"
+class="stories-list">
+
+</div>
+
+</div>
+
+</div>
 
 </section>
 
 
 
-<!-- =========================
+
+
+<!-- =====================================================
      CERTIFICATE
-========================= -->
+===================================================== -->
 
 <section id="certificatePage" class="page">
 
-  <div class="certificate-section">
+<button class="back-btn"
+onclick="showPage('home')">
 
-    <div id="certificate" class="certificate">
+← الرئيسية
 
-      <div class="certificate-corner corner-one"></div>
-      <div class="certificate-corner corner-two"></div>
-
-      <div class="certificate-inner">
-
-        <div class="certificate-header">
-
-          <span>حقوقنا</span>
-
-          <small>
-            اليوم العالمي للطفل · 20 نوفمبر 2026
-          </small>
-
-        </div>
+</button>
 
 
-        <div class="certificate-main">
-
-          <div class="certificate-icon">
-            ♡
-          </div>
-
-          <h1>
-            شهادة مشاركة
-          </h1>
-
-          <p class="certificate-subtitle">
-            تُمنح هذه الشهادة للطالبة
-          </p>
+<div class="certificate-area">
 
 
-          <h2 id="certName">
-            اسم الطالبة
-          </h2>
+<div id="certificate"
+class="certificate">
+
+<div class="cert-decoration top-left"></div>
+<div class="cert-decoration bottom-right"></div>
 
 
-          <div class="class-pill">
-            الصف <span id="certClass">1/1</span>
-          </div>
+<div class="certificate-content">
 
 
-          <p class="certificate-text">
-            تقديرًا لمشاركتها الفاعلة في مبادرة
-            <strong>«حقوقنا»</strong>،
-            وحرصها على التعرف إلى حقوق الطفل
-            والمساهمة في نشر الوعي بها.
-          </p>
+<div class="cert-top">
+
+<div class="cert-brand">
+حقوقنا
+</div>
+
+<div>
+اليوم العالمي للطفل
+<br>
+20 نوفمبر 2026
+</div>
+
+</div>
 
 
-          <div class="certificate-quote">
-            «صوتك مهم، ومعرفتك بحقوقك هي بداية لصنع أثر أجمل.»
-          </div>
+<div class="cert-center">
+
+<div class="cert-symbol">
+♡
+</div>
 
 
-          <div class="certificate-score">
-
-            <span>
-              نتيجة التحدّي
-            </span>
-
-            <strong id="certScore">
-              5 / 5
-            </strong>
-
-          </div>
-
-        </div>
+<span>
+شهادة مشاركة
+</span>
 
 
-        <div class="certificate-footer">
-
-          <span>
-            رقم المشاركة:
-            <b id="certNumber">001</b>
-          </span>
-
-          <span>
-            20 نوفمبر 2026
-          </span>
-
-        </div>
-
-      </div>
-
-    </div>
+<p>
+تُمنح هذه الشهادة للطالبة
+</p>
 
 
-    <div class="certificate-buttons">
-
-      <button class="primary-btn"
-              onclick="saveCertificatePDF()">
-        ↓ حفظ الشهادة PDF
-      </button>
-
-      <button class="secondary-btn"
-              onclick="window.print()">
-        🖨️ طباعة
-      </button>
-
-    </div>
+<h1 id="certName">
+اسم الطالبة
+</h1>
 
 
-    <button class="text-btn"
-            onclick="showPage('home')">
-      العودة للرئيسية
-    </button>
+<div class="class-badge">
+الصف <span id="certClass">1/1</span>
+</div>
 
-  </div>
+
+<p class="cert-message">
+
+تقديرًا لمشاركتها الفاعلة في مبادرة
+<strong>«حقوقنا»</strong>،
+وحرصها على التعرف إلى حقوق الطفل
+والمساهمة في نشر الوعي بها.
+
+</p>
+
+
+<div class="cert-quote">
+
+«معرفة حقوقك بداية، وصوتك قد يصنع فرقًا.»
+
+</div>
+
+
+<div class="certificate-result">
+
+<div>
+<span>نتيجة التحدي</span>
+<strong id="certScore">5 / 5</strong>
+</div>
+
+<div>
+<span>رقم المشاركة</span>
+<strong id="certNumber">001</strong>
+</div>
+
+</div>
+
+</div>
+
+
+<div class="cert-bottom">
+
+<span>
+حقوقنا · 2026
+</span>
+
+<span>
+لكل طفل حق، ولكل صوت أثر.
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="certificate-actions">
+
+<button class="primary-btn"
+onclick="saveCertificatePDF()">
+
+↓ حفظ الشهادة PDF
+
+</button>
+
+
+<button class="outline-btn"
+onclick="window.print()">
+
+🖨️ طباعة
+
+</button>
+
+</div>
+
+
+<p class="certificate-tip">
+يمكنك الاحتفاظ بالشهادة كملف PDF على جهازك.
+</p>
+
+</div>
 
 </section>
 
 
 
-<!-- =========================
+
+
+<!-- =====================================================
      ABOUT
-========================= -->
+===================================================== -->
 
 <section id="about" class="page">
 
-  <div class="about-wrapper">
+<button class="back-btn"
+onclick="showPage('home')">
 
-    <div class="about-hero">
+← الرئيسية
 
-      <span class="eyebrow">
-        عن حقوقنا
-      </span>
-
-      <h2>
-        لأن معرفة الحقوق
-        <span>خطوة نحو حمايتها</span>
-      </h2>
-
-      <p>
-        «حقوقنا» مبادرة رقمية توعوية بمناسبة اليوم العالمي للطفل،
-        صُممت لتقديم تجربة تفاعلية تساعد الطالبات على التعرف
-        إلى حقوق الطفل بطريقة بسيطة، ممتعة، ومرتبطة بمواقف من الحياة.
-      </p>
-
-    </div>
+</button>
 
 
-    <div class="about-cards">
+<div class="about">
 
-      <div>
-        <span>01</span>
-        <h3>التوعية</h3>
-        <p>
-          التعرف إلى الحقوق الأساسية للطفل وفهم أهميتها.
-        </p>
-      </div>
+<div class="about-hero">
 
-      <div>
-        <span>02</span>
-        <h3>التفاعل</h3>
-        <p>
-          تحويل المعرفة إلى تحديات وتجارب رقمية ممتعة.
-        </p>
-      </div>
+<span>
+04 · عن المشروع
+</span>
 
-      <div>
-        <span>03</span>
-        <h3>الأثر</h3>
-        <p>
-          إعطاء مساحة للكلمة والتجربة والمشاركة الواعية.
-        </p>
-      </div>
+<h2>
+حقوقنا
+</h2>
 
-    </div>
+<h3>
+لأن معرفة الحق بداية حمايته
+</h3>
+
+<p>
+«حقوقنا» مشروع رقمي توعوي بمناسبة اليوم العالمي للطفل،
+يهدف إلى تقديم تجربة تفاعلية تساعد الطالبات على التعرف
+إلى حقوق الطفل بطريقة حديثة وبعيدة عن الأسلوب التقليدي.
+</p>
+
+</div>
 
 
-    <div class="creator-section">
 
-      <span>
-        إعداد وتنفيذ
-      </span>
+<div class="about-values">
 
-      <h3>
-        غلا عبدالعزيز المضحي
-      </h3>
+<div>
 
-      <p>
-        الصف الأول الثانوي - 1/1
-      </p>
+<span>
+01
+</span>
 
-      <div class="creator-line"></div>
+<h3>
+نتعلم
+</h3>
 
-      <small>
-        مشروع توعوي بمناسبة اليوم العالمي للطفل
-      </small>
+<p>
+نتعرف إلى الحقوق الأساسية للطفل وأهميتها.
+</p>
 
-    </div>
+</div>
 
-  </div>
+
+<div>
+
+<span>
+02
+</span>
+
+<h3>
+نتفاعل
+</h3>
+
+<p>
+نحوّل المعرفة إلى مواقف وتحديات وتجارب رقمية.
+</p>
+
+</div>
+
+
+<div>
+
+<span>
+03
+</span>
+
+<h3>
+نترك أثرًا
+</h3>
+
+<p>
+نعطي لكل مشاركة مساحة ليصل صوتها إلى غيرها.
+</p>
+
+</div>
+
+</div>
+
+
+
+<div class="creator">
+
+<div class="creator-icon">
+✦
+</div>
+
+<span>
+إعداد وتنفيذ
+</span>
+
+<h3>
+غلا عبدالعزيز المضحي
+</h3>
+
+<p>
+الصف الأول الثانوي - 1/1
+</p>
+
+<div class="creator-line"></div>
+
+<small>
+مشروع توعوي بمناسبة اليوم العالمي للطفل
+</small>
+
+</div>
+
+</div>
 
 </section>
 
-
 </main>
+
 
 
 <!-- =========================
@@ -759,15 +1186,56 @@
 
 <footer>
 
-  <span>
-    حقوقنا © 2026
-  </span>
+<span>
+حقوقنا © 2026
+</span>
 
-  <span>
-    لكل طفل حق، ولكل صوت أثر.
-  </span>
+<span>
+لكل طفل حق، ولكل صوت أثر.
+</span>
 
 </footer>
+
+
+
+<!-- =========================
+     RIGHT MODAL
+========================= -->
+
+<div id="rightModal"
+class="modal">
+
+<div class="modal-box">
+
+<button class="modal-close"
+onclick="closeRight()">
+×
+</button>
+
+<div id="modalIcon"
+class="modal-icon">
+🛡️
+</div>
+
+<span id="modalTitle">
+الحق في الأمان
+</span>
+
+<h2 id="modalHeading">
+أن يعيش الطفل في بيئة آمنة
+</h2>
+
+<p id="modalText">
+</p>
+
+<div id="modalExample"
+class="modal-example">
+</div>
+
+</div>
+
+</div>
+
 
 
 <script src="script.js"></script>
