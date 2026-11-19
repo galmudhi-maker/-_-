@@ -1,2157 +1,754 @@
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
+/* =========================================
+   بيانات الموقع
+========================================= */
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+let studentName = "";
+let studentClass = "";
 
-:root {
+let currentQuestion = 0;
+let score = 0;
 
-  --blue: #5B9BD5;
-  --blue-dark: #19324D;
-  --blue-light: #EAF6FF;
+let participationCount =
+  Number(localStorage.getItem("rightsParticipation") || 0);
 
-  --yellow: #FFD86B;
-  --yellow-light: #FFF8DF;
+let stories =
+  JSON.parse(localStorage.getItem("rightsStories") || "[]");
 
-  --mint: #A8DCC8;
-  --mint-light: #F0FBF7;
 
-  --white: #FFFFFF;
+/* =========================================
+   الأسئلة
+========================================= */
 
-  --text: #334155;
-  --gray: #718096;
+const questions = [
 
-  --border: #DCEAF5;
+  {
+    question:
+      "طفل يتعرض للتنمر بشكل متكرر في المدرسة. ما التصرف الأفضل؟",
 
-  --shadow:
-    0 20px 60px rgba(25, 50, 77, 0.08);
-}
+    answers: [
+      "أتجاهل الأمر تمامًا",
+      "أخبر شخصًا بالغًا موثوقًا وأطلب المساعدة",
+      "أشارك في التنمر حتى لا أكون وحدي"
+    ],
 
-html {
-  scroll-behavior: smooth;
-}
+    correct: 1,
 
-body {
+    explanation:
+      "طلب المساعدة من شخص بالغ موثوق يساعد على حماية الطفل والتعامل مع المشكلة."
+  },
 
-  font-family: "Cairo", sans-serif;
 
-  color: var(--blue-dark);
+  {
+    question:
+      "طفلة لديها رأي مختلف وتريد التعبير عنه بطريقة محترمة. أي حق يرتبط بذلك؟",
 
-  background:
-    radial-gradient(
-      circle at 10% 10%,
-      rgba(91, 155, 213, 0.10),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 90% 80%,
-      rgba(168, 220, 200, 0.13),
-      transparent 30%
-    ),
-    #ffffff;
+    answers: [
+      "الحق في التعبير",
+      "الحق في اللعب",
+      "الحق في الرعاية"
+    ],
 
-  min-height: 100vh;
-}
+    correct: 0,
 
-button,
-textarea {
-  font-family: inherit;
-}
+    explanation:
+      "للطفل الحق في التعبير عن آرائه ومشاعره بطريقة مناسبة وآمنة."
+  },
 
-button {
-  border: 0;
-  cursor: pointer;
-}
 
+  {
+    question:
+      "طفل في عمر الدراسة يحتاج إلى فرصة للتعلم. ما الحق المرتبط بذلك؟",
 
-/* =========================
-   NAVBAR
-========================= */
+    answers: [
+      "الحق في اللعب",
+      "الحق في التعليم",
+      "الحق في الأمان"
+    ],
 
-.navbar {
+    correct: 1,
 
-  position: sticky;
+    explanation:
+      "التعليم من الحقوق الأساسية التي تساعد الطفل على النمو واكتساب المعرفة."
+  },
 
-  top: 0;
 
-  z-index: 1000;
+  {
+    question:
+      "أي موقف يعكس احترام الطفل؟",
 
-  height: 74px;
+    answers: [
+      "السخرية من مشاعره",
+      "مقاطعته دائمًا",
+      "الاستماع إليه والتعامل معه بكرامة"
+    ],
 
-  display: flex;
+    correct: 2,
 
-  align-items: center;
+    explanation:
+      "الاحترام يعني الاستماع للطفل ومعاملته بكرامة دون إهانة أو سخرية."
+  },
 
-  justify-content: space-between;
 
-  padding: 0 7%;
+  {
+    question:
+      "لماذا يحتاج الطفل إلى وقت للعب والراحة؟",
 
-  background: rgba(255,255,255,0.88);
+    answers: [
+      "لأن اللعب والنشاط جزء مهم من نمو الطفل وراحته",
+      "لأنه لا يحتاج إلى التعلم",
+      "لأن المدرسة غير مهمة"
+    ],
 
-  backdrop-filter: blur(18px);
+    correct: 0,
 
-  border-bottom: 1px solid rgba(220,234,245,0.7);
-}
-
-.logo {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 10px;
-
-  cursor: pointer;
-
-  font-weight: 800;
-
-  color: var(--blue-dark);
-
-  font-size: 18px;
-}
-
-.logo-shape {
-
-  width: 38px;
-
-  height: 38px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  border-radius: 12px;
-
-  background: var(--yellow);
-
-  font-size: 21px;
-}
-
-.navbar nav {
-
-  display: flex;
-
-  gap: 5px;
-}
-
-.navbar nav button {
-
-  background: transparent;
-
-  color: var(--gray);
-
-  padding: 9px 13px;
-
-  border-radius: 10px;
-
-  font-size: 12px;
-
-  transition: .2s;
-}
-
-.navbar nav button:hover {
-
-  color: var(--blue-dark);
-
-  background: var(--blue-light);
-}
-
-
-/* =========================
-   PAGE
-========================= */
-
-.page {
-
-  display: none;
-
-  min-height: calc(100vh - 74px);
-
-  padding: 55px 7% 80px;
-
-}
-
-.page.active {
-
-  display: block;
-
-  animation: pageIn .45s ease;
-}
-
-@keyframes pageIn {
-
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+    explanation:
+      "اللعب والراحة والنشاط المناسب للعمر جزء مهم من حياة الطفل ونموه."
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
+];
+
+
+/* =========================================
+   التنقل
+========================================= */
+
+function showPage(id) {
+
+  document
+    .querySelectorAll(".page")
+    .forEach(page => page.classList.remove("active"));
+
+  const page = document.getElementById(id);
+
+  if (page) {
+    page.classList.add("active");
   }
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
 }
 
 
-/* =========================
-   BUTTONS
-========================= */
+/* =========================================
+   بدء التحدي
+========================================= */
 
-.primary-btn {
+function startQuiz() {
 
-  background: var(--blue);
+  const name =
+    prompt("اكتبي اسمك لإصدار الشهادة:");
 
-  color: white;
+  if (!name || name.trim() === "") {
 
-  padding: 13px 24px;
+    alert("نحتاج اسمك حتى نضعه في الشهادة.");
 
-  border-radius: 13px;
+    return;
+  }
 
-  font-size: 13px;
 
-  font-weight: 800;
+  const studentSection =
+    prompt("اكتبي شعبتك، مثال: 1/1");
 
-  box-shadow:
-    0 12px 25px rgba(91,155,213,.22);
+  if (!studentSection || studentSection.trim() === "") {
 
-  transition: .25s;
-}
+    alert("اكتبي الشعبة أولًا.");
 
-.primary-btn:hover {
+    return;
+  }
 
-  transform: translateY(-3px);
 
-  box-shadow:
-    0 17px 30px rgba(91,155,213,.28);
-}
+  studentName = name.trim();
 
-.secondary-btn {
+  studentClass = studentSection.trim();
 
-  background: white;
 
-  color: var(--blue-dark);
+  currentQuestion = 0;
 
-  padding: 13px 24px;
+  score = 0;
 
-  border-radius: 13px;
+  showPage("challenge");
 
-  border: 1px solid var(--border);
-
-  font-size: 13px;
-
-  font-weight: 800;
-
-  transition: .25s;
-}
-
-.secondary-btn:hover {
-
-  transform: translateY(-3px);
-
-  border-color: var(--blue);
-}
-
-.text-btn {
-
-  display: block;
-
-  margin: 20px auto 0;
-
-  background: transparent;
-
-  color: var(--gray);
-
-  font-size: 12px;
+  loadQuestion();
 }
 
 
-/* =========================
-   HOME
-========================= */
+/* =========================================
+   تشغيل التحدي عند فتح الصفحة
+========================================= */
 
-.hero {
+document.addEventListener("DOMContentLoaded", function () {
 
-  width: min(1200px, 100%);
+  updateHomeCount();
 
-  min-height: 570px;
+  loadStories();
 
-  margin: auto;
+  setupStoryCounter();
 
-  display: grid;
+  /*
+   عند الضغط على "ابدئي التحدي"
+   يتم طلب الاسم والشعبة.
+  */
 
-  grid-template-columns: 1.05fr .95fr;
+  const challengeButton =
+    document.querySelector(".primary-btn");
 
-  align-items: center;
-
-  gap: 40px;
-}
-
-.hero-content {
-
-  max-width: 620px;
-}
-
-.date-pill {
-
-  display: inline-block;
-
-  background: var(--blue-light);
-
-  color: var(--blue);
-
-  padding: 8px 15px;
-
-  border-radius: 50px;
-
-  font-size: 11px;
-
-  font-weight: 800;
-
-  margin-bottom: 22px;
-}
-
-.hero h1 {
-
-  font-size: clamp(55px, 9vw, 95px);
-
-  line-height: .95;
-
-  font-weight: 800;
-
-  letter-spacing: -3px;
-
-  color: var(--blue-dark);
-}
-
-.hero h1 span {
-
-  display: block;
-
-  margin-top: 17px;
-
-  font-size: clamp(16px, 2vw, 22px);
-
-  letter-spacing: 0;
-
-  color: var(--blue);
-
-  font-weight: 700;
-}
-
-.hero-content > p {
-
-  color: var(--gray);
-
-  max-width: 540px;
-
-  line-height: 2;
-
-  margin: 25px 0;
-
-  font-size: 14px;
-}
-
-.hero-buttons {
-
-  display: flex;
-
-  gap: 12px;
-
-  flex-wrap: wrap;
-}
+});
 
 
-/* HERO ART */
+/* =========================================
+   تحميل السؤال
+========================================= */
 
-.hero-art {
+function loadQuestion() {
 
-  position: relative;
+  const q = questions[currentQuestion];
 
-  min-height: 450px;
+  document.getElementById("questionText").textContent =
+    q.question;
 
-  display: flex;
 
-  align-items: center;
+  document.getElementById("questionNumber").textContent =
+    `السؤال ${currentQuestion + 1} من ${questions.length}`;
 
-  justify-content: center;
-}
 
-.big-circle {
-
-  width: 300px;
-
-  height: 300px;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      circle at 30% 25%,
-      #FFFFFF,
-      #EAF6FF 60%,
-      #D8EDFC
+  const percent =
+    Math.round(
+      ((currentQuestion + 1) / questions.length) * 100
     );
 
-  border: 1px solid #D3E8F5;
 
-  box-shadow:
-    0 30px 80px rgba(91,155,213,.15);
+  document.getElementById("progressPercent").textContent =
+    `${percent}%`;
 
-  display: flex;
 
-  flex-direction: column;
+  document.getElementById("progressBar").style.width =
+    `${percent}%`;
 
-  align-items: center;
 
-  justify-content: center;
+  const answers =
+    document.getElementById("answers");
 
-  text-align: center;
+  answers.innerHTML = "";
 
-  position: relative;
-}
-
-.big-circle::before {
-
-  content: "";
-
-  position: absolute;
-
-  width: 355px;
-
-  height: 355px;
-
-  border: 1px dashed #C7DFEF;
-
-  border-radius: 50%;
-}
-
-.big-circle span {
-
-  width: 75px;
-
-  height: 75px;
-
-  background: var(--yellow);
-
-  border-radius: 50%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 36px;
-
-  margin-bottom: 15px;
-}
-
-.big-circle small {
-
-  font-size: 18px;
-
-  line-height: 1.7;
-
-  font-weight: 800;
-
-  color: var(--blue-dark);
-}
-
-.floating-card {
-
-  position: absolute;
-
-  z-index: 3;
-
-  background: white;
-
-  border: 1px solid var(--border);
-
-  border-radius: 18px;
-
-  padding: 14px 17px;
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 9px;
-
-  box-shadow: 0 15px 40px rgba(25,50,77,.10);
-
-  font-size: 12px;
-
-  animation: float 4s ease-in-out infinite;
-}
-
-.floating-card span {
-
-  font-size: 22px;
-}
-
-.card-one {
-
-  top: 65px;
-
-  right: 5%;
-
-}
-
-.card-two {
-
-  bottom: 75px;
-
-  left: 2%;
-
-  animation-delay: 1s;
-}
-
-.card-three {
-
-  top: 180px;
-
-  left: -5%;
-
-  animation-delay: 2s;
-}
-
-@keyframes float {
-
-  0%,100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-
-/* QUICK SECTION */
-
-.quick-section {
-
-  width: min(1200px, 100%);
-
-  margin: 20px auto 0;
-}
-
-.section-title {
-
-  margin-bottom: 25px;
-}
-
-.section-title span {
-
-  color: var(--blue);
-
-  font-size: 11px;
-
-  font-weight: 800;
-}
-
-.section-title h2 {
-
-  font-size: 28px;
-
-  margin-top: 4px;
-}
-
-.feature-grid {
-
-  display: grid;
-
-  grid-template-columns: repeat(3, 1fr);
-
-  gap: 17px;
-}
-
-.feature-card {
-
-  position: relative;
-
-  min-height: 235px;
-
-  text-align: right;
-
-  border-radius: 24px;
-
-  padding: 25px;
-
-  transition: .3s;
-
-  overflow: hidden;
-}
-
-.feature-card:hover {
-
-  transform: translateY(-7px);
-}
-
-.feature-card::after {
-
-  content: "";
-
-  position: absolute;
-
-  width: 110px;
-
-  height: 110px;
-
-  border-radius: 50%;
-
-  left: -45px;
-
-  bottom: -45px;
-
-  opacity: .45;
-}
-
-.blue-card {
-
-  background: var(--blue-light);
-}
-
-.blue-card::after {
-
-  background: #C9E5F7;
-}
-
-.yellow-card {
-
-  background: var(--yellow-light);
-}
-
-.yellow-card::after {
-
-  background: #FFEBA8;
-}
-
-.mint-card {
-
-  background: var(--mint-light);
-}
-
-.mint-card::after {
-
-  background: #D3EFE3;
-}
-
-.feature-icon {
-
-  font-size: 31px;
-
-  margin-bottom: 18px;
-}
-
-.feature-card h3 {
-
-  font-size: 18px;
-
-  margin-bottom: 8px;
-}
-
-.feature-card p {
-
-  color: var(--gray);
-
-  font-size: 12px;
-
-  line-height: 1.9;
-
-  max-width: 280px;
-}
-
-.arrow {
-
-  position: absolute;
-
-  left: 23px;
-
-  bottom: 20px;
-
-  font-size: 20px;
-
-  color: var(--blue);
-}
-
-
-/* STATS */
-
-.stats-section {
-
-  width: min(900px, 100%);
-
-  margin: 40px auto 0;
-
-  display: grid;
-
-  grid-template-columns: repeat(3,1fr);
-
-  background: white;
-
-  border: 1px solid var(--border);
-
-  border-radius: 20px;
-
-  box-shadow: var(--shadow);
-
-  overflow: hidden;
-}
-
-.stats-section div {
-
-  padding: 20px;
-
-  text-align: center;
-
-  border-left: 1px solid var(--border);
-}
-
-.stats-section div:last-child {
-
-  border-left: 0;
-}
-
-.stats-section strong {
-
-  display: block;
-
-  color: var(--blue);
-
-  font-size: 27px;
-}
-
-.stats-section span {
-
-  color: var(--gray);
-
-  font-size: 10px;
-}
-
-
-/* =========================
-   PAGE HEADINGS
-========================= */
-
-.page-heading {
-
-  max-width: 900px;
-
-  margin: 10px auto 35px;
-
-  text-align: center;
-}
-
-.eyebrow {
-
-  display: inline-block;
-
-  color: var(--blue);
-
-  font-size: 11px;
-
-  font-weight: 800;
-
-  letter-spacing: .2px;
-}
-
-.page-heading h2 {
-
-  font-size: clamp(30px, 5vw, 47px);
-
-  line-height: 1.25;
-
-  margin-top: 8px;
-}
-
-.page-heading p {
-
-  color: var(--gray);
-
-  max-width: 650px;
-
-  margin: 12px auto;
-
-  line-height: 2;
-
-  font-size: 13px;
-}
-
-
-/* =========================
-   RIGHTS
-========================= */
-
-.rights-container {
-
-  width: min(1000px,100%);
-
-  margin: auto;
-
-  display: grid;
-
-  grid-template-columns: repeat(2,1fr);
-
-  gap: 16px;
-}
-
-.right-item {
-
-  min-height: 180px;
-
-  background: white;
-
-  border: 1px solid var(--border);
-
-  border-radius: 23px;
-
-  padding: 24px;
-
-  display: grid;
-
-  grid-template-columns: 50px 65px 1fr;
-
-  align-items: center;
-
-  gap: 14px;
-
-  position: relative;
-
-  overflow: hidden;
-
-  transition: .25s;
-}
-
-.right-item:hover {
-
-  transform: translateY(-4px);
-
-  box-shadow: var(--shadow);
-
-  border-color: #BCD9EB;
-}
-
-.right-number {
-
-  font-size: 13px;
-
-  color: #A3B6C7;
-
-  font-weight: 800;
-}
-
-.right-icon {
-
-  width: 58px;
-
-  height: 58px;
-
-  border-radius: 17px;
-
-  background: var(--blue-light);
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 26px;
-}
-
-.right-item:nth-child(2n) .right-icon {
-
-  background: var(--yellow-light);
-}
-
-.right-item:nth-child(3n) .right-icon {
-
-  background: var(--mint-light);
-}
-
-.right-item h3 {
-
-  font-size: 17px;
-
-  margin-bottom: 7px;
-}
-
-.right-item p {
-
-  color: var(--gray);
-
-  font-size: 11px;
-
-  line-height: 1.9;
-}
-
-
-/* =========================
-   CHALLENGE
-========================= */
-
-.challenge-wrapper {
-
-  width: min(850px,100%);
-
-  margin: 20px auto;
-}
-
-.challenge-top {
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: space-between;
-
-  margin-bottom: 25px;
-}
-
-.challenge-top h2 {
-
-  font-size: 30px;
-
-  margin-top: 5px;
-}
-
-.score-box {
-
-  background: var(--yellow-light);
-
-  border: 1px solid #F8E8A9;
-
-  border-radius: 17px;
-
-  padding: 10px 20px;
-
-  text-align: center;
-}
-
-.score-box span {
-
-  display: block;
-
-  color: var(--gray);
-
-  font-size: 9px;
-}
-
-.score-box strong {
-
-  color: var(--blue-dark);
-
-  font-size: 25px;
-}
-
-.progress-area {
-
-  margin-bottom: 20px;
-}
-
-.progress-info {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  color: var(--gray);
-
-  font-size: 10px;
-
-  margin-bottom: 7px;
-}
-
-.progress {
-
-  height: 7px;
-
-  background: #EAF1F5;
-
-  border-radius: 20px;
-
-  overflow: hidden;
-}
-
-#progressBar {
-
-  width: 20%;
-
-  height: 100%;
-
-  background: var(--blue);
-
-  transition: .4s;
-}
-
-.question-card {
-
-  background: white;
-
-  border: 1px solid var(--border);
-
-  border-radius: 28px;
-
-  padding: 40px;
-
-  box-shadow: var(--shadow);
-
-  text-align: center;
-}
-
-.question-icon {
-
-  width: 58px;
-
-  height: 58px;
-
-  background: var(--blue-light);
-
-  border-radius: 17px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 27px;
-
-  margin: auto;
-}
-
-.question-label {
-
-  display: block;
-
-  margin-top: 15px;
-
-  color: var(--blue);
-
-  font-size: 10px;
-
-  font-weight: 800;
-}
-
-.question-card h3 {
-
-  max-width: 650px;
-
-  margin: 13px auto 25px;
-
-  font-size: 21px;
-
-  line-height: 1.8;
-}
-
-.answers {
-
-  display: grid;
-
-  gap: 11px;
-
-  max-width: 620px;
-
-  margin: auto;
-}
-
-.answer {
-
-  background: #FAFDFF;
-
-  border: 1px solid var(--border);
-
-  padding: 15px 18px;
-
-  border-radius: 14px;
-
-  text-align: right;
-
-  font-size: 12px;
-
-  color: var(--blue-dark);
-
-  transition: .2s;
-}
-
-.answer:hover {
-
-  border-color: var(--blue);
-
-  background: var(--blue-light);
-
-  transform: translateX(-3px);
-}
-
-.answer.correct {
-
-  background: var(--mint-light);
-
-  border-color: #8FD0B5;
-
-}
-
-.answer.wrong {
-
-  background: #FFF1F1;
-
-  border-color: #E8A7A7;
-}
-
-
-/* =========================
-   RESULT
-========================= */
-
-.result-card {
-
-  width: min(500px,100%);
-
-  margin: 80px auto;
-
-  background: white;
-
-  border: 1px solid var(--border);
-
-  border-radius: 27px;
-
-  box-shadow: var(--shadow);
-
-  padding: 38px;
-
-  text-align: center;
-}
-
-.result-icon {
-
-  width: 80px;
-
-  height: 80px;
-
-  border-radius: 50%;
-
-  background: var(--yellow);
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 35px;
-
-  margin: auto auto 18px;
-}
-
-.result-card h2 {
-
-  font-size: 27px;
-
-  margin: 7px 0;
-}
-
-.result-card > p {
-
-  color: var(--gray);
-
-  line-height: 1.9;
-
-  font-size: 12px;
-}
-
-.final-score {
-
-  margin: 25px auto;
-
-  background: var(--blue-light);
-
-  border-radius: 20px;
-
-  padding: 15px;
-}
-
-.final-score span {
-
-  color: var(--gray);
-
-  font-size: 11px;
-}
-
-.final-score strong {
-
-  display: block;
-
-  color: var(--blue);
-
-  font-size: 42px;
-}
-
-.result-actions {
-
-  display: flex;
-
-  justify-content: center;
-
-  gap: 10px;
-
-  flex-wrap: wrap;
-}
-
-
-/* =========================
-   STORIES
-========================= */
-
-.story-layout {
-
-  width: min(1100px,100%);
-
-  margin: auto;
-
-  display: grid;
-
-  grid-template-columns: .85fr 1.15fr;
-
-  gap: 20px;
-
-  align-items: start;
-}
-
-.story-form {
-
-  background: white;
-
-  border: 1px solid var(--border);
-
-  border-radius: 25px;
-
-  padding: 27px;
-
-  box-shadow: var(--shadow);
-}
-
-.form-icon {
-
-  width: 53px;
-
-  height: 53px;
-
-  border-radius: 16px;
-
-  background: var(--mint-light);
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 25px;
-
-  margin-bottom: 15px;
-}
-
-.story-form h3 {
-
-  font-size: 21px;
-}
-
-.form-note {
-
-  color: #9A6B6B;
-
-  font-size: 10px;
-
-  margin: 7px 0 15px;
-}
-
-textarea {
-
-  width: 100%;
-
-  min-height: 180px;
-
-  resize: vertical;
-
-  border: 1px solid var(--border);
-
-  border-radius: 15px;
-
-  padding: 15px;
-
-  outline: none;
-
-  font-size: 12px;
-
-  color: var(--blue-dark);
-
-  line-height: 2;
-
-  background: #FCFEFF;
-}
-
-textarea:focus {
-
-  border-color: var(--blue);
-
-  box-shadow: 0 0 0 4px rgba(91,155,213,.08);
-}
-
-.character-count {
-
-  text-align: left;
-
-  color: var(--gray);
-
-  font-size: 9px;
-
-  margin: 6px 2px 12px;
-}
-
-.story-form .primary-btn {
-
-  width: 100%;
-}
-
-.story-wall {
-
-  min-height: 400px;
-
-  background: white;
-
-  border: 1px solid var(--border);
-
-  border-radius: 25px;
-
-  padding: 25px;
-}
-
-.wall-title {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-
-  border-bottom: 1px solid var(--border);
-
-  padding-bottom: 15px;
-
-  margin-bottom: 15px;
-}
-
-.wall-title h3 {
-
-  margin-top: 3px;
-
-  font-size: 21px;
-}
-
-.wall-title > span {
-
-  width: 36px;
-
-  height: 36px;
-
-  border-radius: 50%;
-
-  background: var(--blue-light);
-
-  color: var(--blue);
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-weight: 800;
-
-  font-size: 11px;
-}
-
-.stories-list {
-
-  display: grid;
-
-  gap: 12px;
-}
-
-.empty-story {
-
-  min-height: 300px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
 
-  justify-content: center;
+  q.answers.forEach((answer, index) => {
 
-  text-align: center;
+    const button =
+      document.createElement("button");
 
-  color: var(--gray);
-}
-
-.empty-story span {
-
-  font-size: 40px;
-
-  color: var(--yellow);
-}
-
-.empty-story p {
-
-  font-size: 11px;
-}
-
-.story-card {
-
-  background: var(--blue-light);
-
-  border-radius: 17px;
-
-  padding: 18px;
-
-  border-right: 4px solid var(--blue);
-
-  animation: storyIn .4s ease;
-}
-
-@keyframes storyIn {
-
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.story-card p {
-
-  color: var(--blue-dark);
-
-  font-size: 12px;
-
-  line-height: 2;
-}
-
-.story-card small {
-
-  display: block;
-
-  margin-top: 9px;
-
-  color: var(--gray);
-
-  font-size: 9px;
-}
-
-
-/* =========================
-   CERTIFICATE
-========================= */
-
-.certificate-section {
-
-  width: min(900px,100%);
-
-  margin: auto;
-
-  text-align: center;
-}
-
-.certificate {
-
-  position: relative;
-
-  width: 100%;
-
-  aspect-ratio: 1.414 / 1;
-
-  background: white;
-
-  border: 12px solid #F6FAFD;
-
-  outline: 2px solid var(--blue);
-
-  box-shadow: 0 30px 80px rgba(25,50,77,.13);
-
-  overflow: hidden;
-
-  color: var(--blue-dark);
-}
-
-.certificate::before {
-
-  content: "";
-
-  position: absolute;
-
-  inset: 15px;
-
-  border: 1px solid #CFE2F0;
-
-  pointer-events: none;
-}
-
-.certificate-corner {
-
-  position: absolute;
-
-  width: 180px;
-
-  height: 180px;
-
-  border-radius: 50%;
-
-  opacity: .8;
-}
-
-.corner-one {
-
-  left: -120px;
-
-  top: -110px;
-
-  background: var(--yellow);
-}
-
-.corner-two {
-
-  right: -120px;
-
-  bottom: -110px;
-
-  background: var(--mint);
-}
-
-.certificate-inner {
-
-  position: relative;
-
-  z-index: 2;
-
-  height: 100%;
-
-  padding: 28px 40px;
-
-  display: flex;
-
-  flex-direction: column;
-}
-
-.certificate-header {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  align-items: center;
-}
-
-.certificate-header span {
-
-  color: var(--blue);
-
-  font-weight: 800;
-
-  font-size: 15px;
-}
-
-.certificate-header small {
-
-  color: var(--gray);
-
-  font-size: 8px;
-}
-
-.certificate-main {
-
-  flex: 1;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-
-  justify-content: center;
-}
-
-.certificate-icon {
-
-  width: 43px;
-
-  height: 43px;
-
-  border-radius: 50%;
-
-  background: var(--yellow);
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  font-size: 21px;
-
-  margin-bottom: 5px;
-}
-
-.certificate-main h1 {
-
-  font-size: 28px;
-
-  margin: 2px 0;
-
-}
-
-.certificate-subtitle {
-
-  color: var(--gray);
-
-  font-size: 9px;
-
-  margin: 2px 0;
-}
-
-.certificate-main h2 {
-
-  font-size: clamp(24px,5vw,43px);
-
-  color: var(--blue-dark);
-
-  margin: 5px 0;
-
-  font-weight: 800;
-}
+    button.className = "answer";
 
-.class-pill {
+    button.textContent = answer;
 
-  background: var(--blue-light);
+    button.onclick =
+      () => selectAnswer(index, button);
 
-  padding: 5px 18px;
+    answers.appendChild(button);
 
-  border-radius: 50px;
+  });
 
-  font-size: 9px;
-
-}
-
-.class-pill span {
-
-  color: var(--blue);
-
-  font-weight: 800;
-}
-
-.certificate-text {
-
-  max-width: 520px;
-
-  color: var(--gray);
-
-  font-size: 9px;
-
-  line-height: 1.9;
-
-  margin: 10px 0;
-}
-
-.certificate-text strong {
-
-  color: var(--blue-dark);
-}
-
-.certificate-quote {
-
-  color: var(--blue);
-
-  font-size: 10px;
-
-  font-weight: 700;
-
-  max-width: 500px;
-}
-
-.certificate-score {
-
-  display: flex;
-
-  gap: 10px;
-
-  align-items: center;
-
-  background: var(--yellow-light);
-
-  border: 1px solid #F6E7AC;
-
-  padding: 5px 15px;
-
-  border-radius: 50px;
-
-  margin-top: 10px;
-
-  font-size: 8px;
-}
-
-.certificate-score strong {
-
-  font-size: 11px;
-}
-
-.certificate-footer {
-
-  display: flex;
-
-  justify-content: space-between;
-
-  color: #8496A8;
-
-  font-size: 7px;
-}
-
-.certificate-buttons {
-
-  display: flex;
-
-  justify-content: center;
-
-  gap: 10px;
-
-  margin-top: 20px;
-}
-
-
-/* =========================
-   ABOUT
-========================= */
-
-.about-wrapper {
-
-  width: min(1000px,100%);
-
-  margin: auto;
-}
-
-.about-hero {
-
-  max-width: 780px;
-
-  margin: 15px auto 40px;
-
-  text-align: center;
-}
-
-.about-hero h2 {
-
-  font-size: clamp(30px,5vw,48px);
-
-  line-height: 1.3;
-
-  margin: 8px 0 15px;
-}
-
-.about-hero h2 span {
-
-  display: block;
-
-  color: var(--blue);
-}
-
-.about-hero p {
-
-  color: var(--gray);
-
-  line-height: 2.1;
-
-  font-size: 13px;
-}
-
-.about-cards {
-
-  display: grid;
-
-  grid-template-columns: repeat(3,1fr);
-
-  gap: 15px;
-}
-
-.about-cards div {
-
-  background: white;
-
-  border: 1px solid var(--border);
-
-  border-radius: 20px;
-
-  padding: 25px;
-}
-
-.about-cards span {
-
-  color: var(--blue);
-
-  font-weight: 800;
-
-  font-size: 11px;
-}
-
-.about-cards h3 {
-
-  margin: 15px 0 6px;
-
-  font-size: 17px;
-}
-
-.about-cards p {
-
-  color: var(--gray);
-
-  font-size: 11px;
-
-  line-height: 1.9;
-}
-
-.creator-section {
-
-  margin-top: 35px;
-
-  padding: 35px;
-
-  text-align: center;
-
-  background: var(--blue-light);
-
-  border-radius: 25px;
-}
-
-.creator-section > span {
-
-  color: var(--gray);
-
-  font-size: 10px;
-}
-
-.creator-section h3 {
-
-  margin-top: 5px;
-
-  font-size: 25px;
 }
 
-.creator-section p {
 
-  color: var(--blue);
+/* =========================================
+   اختيار الإجابة
+========================================= */
 
-  font-size: 12px;
+function selectAnswer(index, button) {
 
-  font-weight: 700;
+  const q = questions[currentQuestion];
 
-  margin-top: 4px;
-}
-
-.creator-line {
-
-  width: 50px;
-
-  height: 3px;
-
-  background: var(--yellow);
-
-  border-radius: 5px;
-
-  margin: 18px auto;
-}
+  const allButtons =
+    document.querySelectorAll(".answer");
 
-.creator-section small {
 
-  color: var(--gray);
+  allButtons.forEach(btn => {
+    btn.disabled = true;
+  });
 
-  font-size: 9px;
-}
-
-
-/* =========================
-   FOOTER
-========================= */
-
-footer {
 
-  padding: 25px 7%;
+  if (index === q.correct) {
 
-  border-top: 1px solid var(--border);
+    score++;
 
-  display: flex;
-
-  justify-content: space-between;
-
-  color: var(--gray);
-
-  font-size: 9px;
-
-  background: white;
-}
+    button.classList.add("correct");
 
+    showTemporaryMessage(
+      "إجابة صحيحة! 💙",
+      q.explanation
+    );
 
-/* =========================
-   MOBILE
-========================= */
+  } else {
 
-@media (max-width: 800px) {
+    button.classList.add("wrong");
 
-  .navbar {
+    allButtons[q.correct].classList.add("correct");
 
-    padding: 0 20px;
+    showTemporaryMessage(
+      "قريبة! 🌱",
+      q.explanation
+    );
 
   }
 
-  .navbar nav {
 
-    display: none;
+  setTimeout(() => {
 
-  }
+    currentQuestion++;
 
-  .hero {
+    if (currentQuestion < questions.length) {
 
-    grid-template-columns: 1fr;
+      loadQuestion();
 
-    text-align: center;
+    } else {
 
-    padding-top: 25px;
+      finishQuiz();
 
-  }
+    }
 
-  .hero-content {
+  }, 1800);
 
-    margin: auto;
-
-  }
-
-  .hero-buttons {
-
-    justify-content: center;
-
-  }
-
-  .hero-art {
-
-    min-height: 350px;
-
-  }
-
-  .big-circle {
-
-    width: 230px;
-
-    height: 230px;
-
-  }
-
-  .big-circle::before {
-
-    width: 280px;
-
-    height: 280px;
-
-  }
-
-  .card-three {
-
-    left: 0;
-
-  }
-
-  .feature-grid {
-
-    grid-template-columns: 1fr;
-
-  }
-
-  .stats-section {
-
-    grid-template-columns: 1fr;
-
-  }
-
-  .stats-section div {
-
-    border-left: 0;
-
-    border-bottom: 1px solid var(--border);
-
-  }
-
-  .stats-section div:last-child {
-
-    border-bottom: 0;
-
-  }
-
-  .rights-container {
-
-    grid-template-columns: 1fr;
-
-  }
-
-  .story-layout {
-
-    grid-template-columns: 1fr;
-
-  }
-
-  .about-cards {
-
-    grid-template-columns: 1fr;
-
-  }
-
-  .certificate {
-
-    aspect-ratio: auto;
-
-    min-height: 520px;
-
-  }
-
-  .certificate-inner {
-
-    padding: 25px;
-
-  }
-
-  .certificate-buttons {
-
-    flex-direction: column;
-  }
-
-  .certificate-buttons button {
-
-    width: 100%;
-  }
-
-  footer {
-
-    flex-direction: column;
-
-    gap: 7px;
-
-    text-align: center;
-  }
-}
-
-@media (max-width: 450px) {
-
-  .page {
-
-    padding: 35px 15px 60px;
-
-  }
-
-  .hero h1 {
-
-    font-size: 58px;
-
-  }
-
-  .hero h1 span {
-
-    font-size: 17px;
-
-  }
-
-  .right-item {
-
-    grid-template-columns: 30px 55px 1fr;
-
-    padding: 17px;
-
-  }
-
-  .question-card {
-
-    padding: 25px 17px;
-
-  }
-
-  .challenge-top h2 {
-
-    font-size: 23px;
-
-  }
-
-  .certificate {
-
-    min-height: 600px;
-
-  }
-
-  .certificate-header {
-
-    flex-direction: column;
-
-    gap: 5px;
-
-  }
 }
 
 
-/* =========================
-   PRINT
-========================= */
+/* =========================================
+   رسالة مؤقتة
+========================================= */
 
-@media print {
+function showTemporaryMessage(title, text) {
 
-  body * {
+  const old =
+    document.getElementById("feedback");
 
-    visibility: hidden !important;
+  if (old) old.remove();
+
+
+  const box =
+    document.createElement("div");
+
+  box.id = "feedback";
+
+  box.style.position = "fixed";
+  box.style.bottom = "25px";
+  box.style.left = "50%";
+  box.style.transform = "translateX(-50%)";
+  box.style.zIndex = "5000";
+
+  box.style.width = "min(500px, 90%)";
+
+  box.style.background = "#FFFFFF";
+
+  box.style.border = "1px solid #DCEAF5";
+
+  box.style.borderRadius = "18px";
+
+  box.style.padding = "15px 20px";
+
+  box.style.boxShadow =
+    "0 20px 50px rgba(25,50,77,.15)";
+
+  box.innerHTML = `
+    <strong style="color:#19324D;display:block;margin-bottom:4px;">
+      ${title}
+    </strong>
+
+    <span style="color:#718096;font-size:11px;line-height:1.8;">
+      ${text}
+    </span>
+  `;
+
+
+  document.body.appendChild(box);
+
+}
+
+
+/* =========================================
+   إنهاء التحدي
+========================================= */
+
+function finishQuiz() {
+
+  participationCount++;
+
+  localStorage.setItem(
+    "rightsParticipation",
+    participationCount
+  );
+
+  updateHomeCount();
+
+
+  document.getElementById("finalScore").textContent =
+    score;
+
+
+  let message = "";
+
+  if (score === 5) {
+
+    message =
+      "رائع! إجاباتك تعكس وعيًا ممتازًا بحقوق الطفل. 💙";
+
+  } else if (score >= 3) {
+
+    message =
+      "نتيجة جميلة! لديكِ أساس جيد، ومعرفة الحقوق تزداد بالممارسة.";
+
+  } else {
+
+    message =
+      "بداية جيدة! اكتشفي قسم حقوقنا وتعرّفي أكثر على الحقوق الأساسية.";
+
   }
 
-  #certificate,
-  #certificate * {
 
-    visibility: visible !important;
+  document.getElementById("resultMessage").textContent =
+    message;
+
+
+  showPage("result");
+
+}
+
+
+/* =========================================
+   إعادة التحدي
+========================================= */
+
+function restartQuiz() {
+
+  currentQuestion = 0;
+
+  score = 0;
+
+  loadQuestion();
+
+  showPage("challenge");
+
+}
+
+
+/* =========================================
+   فتح الشهادة
+========================================= */
+
+function openCertificate() {
+
+  document.getElementById("certName").textContent =
+    studentName || "الطالبة";
+
+  document.getElementById("certClass").textContent =
+    studentClass || "1/1";
+
+  document.getElementById("certScore").textContent =
+    `${score} / ${questions.length}`;
+
+
+  document.getElementById("certNumber").textContent =
+    String(participationCount).padStart(3, "0");
+
+
+  showPage("certificatePage");
+
+}
+
+
+/* =========================================
+   حفظ PDF
+========================================= */
+
+async function saveCertificatePDF() {
+
+  const certificate =
+    document.getElementById("certificate");
+
+  const button =
+    event.currentTarget;
+
+  const oldText =
+    button.innerHTML;
+
+  button.innerHTML =
+    "جاري تجهيز الشهادة...";
+
+  button.disabled = true;
+
+
+  try {
+
+    const canvas =
+      await html2canvas(certificate, {
+
+        scale: 2,
+
+        useCORS: true,
+
+        backgroundColor: "#FFFFFF"
+
+      });
+
+
+    const image =
+      canvas.toDataURL("image/png");
+
+
+    const {
+      jsPDF
+    } = window.jspdf;
+
+
+    const pdf =
+      new jsPDF({
+
+        orientation: "landscape",
+
+        unit: "mm",
+
+        format: "a4"
+
+      });
+
+
+    pdf.addImage(
+      image,
+      "PNG",
+      0,
+      0,
+      297,
+      210
+    );
+
+
+    let safeName =
+      studentName
+        .replace(/[\\/:*?"<>|]/g, "")
+        .trim();
+
+
+    if (!safeName) {
+
+      safeName = "طالبة";
+
+    }
+
+
+    pdf.save(
+      `شهادة-حقوقنا-${safeName}.pdf`
+    );
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "تعذر إنشاء PDF. استخدمي زر الطباعة ثم اختاري حفظ كـ PDF."
+    );
+
   }
 
-  #certificate {
 
-    position: absolute;
+  button.innerHTML = oldText;
 
-    top: 0;
+  button.disabled = false;
 
-    left: 0;
+}
 
-    width: 100vw;
 
-    height: 100vh;
+/* =========================================
+   عداد الصفحة الرئيسية
+========================================= */
 
-    box-shadow: none;
+function updateHomeCount() {
 
-    outline: 2px solid var(--blue);
+  const count =
+    Number(
+      localStorage.getItem("rightsParticipation") || 0
+    );
+
+  const element =
+    document.getElementById("homeParticipation");
+
+  if (element) {
+
+    element.textContent = count;
+
   }
 
-  .certificate-buttons,
-  .text-btn {
+}
 
-    display: none !important;
+
+/* =========================================
+   القصص
+========================================= */
+
+function setupStoryCounter() {
+
+  const input =
+    document.getElementById("storyInput");
+
+  const counter =
+    document.getElementById("charCount");
+
+  if (!input || !counter) return;
+
+
+  input.addEventListener("input", function () {
+
+    counter.textContent =
+      this.value.length;
+
+  });
+
+}
+
+
+/* =========================================
+   نشر قصة
+========================================= */
+
+function publishStory() {
+
+  const input =
+    document.getElementById("storyInput");
+
+  const text =
+    input.value.trim();
+
+
+  if (text.length < 15) {
+
+    alert(
+      "اكتبي موقفًا أو تجربة قصيرة لا تقل عن 15 حرفًا."
+    );
+
+    return;
+
   }
 
-  @page {
 
-    size: A4 landscape;
+  const story = {
 
-    margin: 0;
+    text: text,
+
+    date: new Date().toLocaleDateString("ar-SA")
+
+  };
+
+
+  stories.unshift(story);
+
+
+  localStorage.setItem(
+    "rightsStories",
+    JSON.stringify(stories)
+  );
+
+
+  input.value = "";
+
+  document.getElementById("charCount").textContent = "0";
+
+
+  loadStories();
+
+
+  alert(
+    "تمت إضافة قصتك إلى جدار الكلمات 💙"
+  );
+
+}
+
+
+/* =========================================
+   عرض القصص
+========================================= */
+
+function loadStories() {
+
+  const list =
+    document.getElementById("storiesList");
+
+  const count =
+    document.getElementById("storyCount");
+
+
+  if (!list || !count) return;
+
+
+  count.textContent =
+    stories.length;
+
+
+  if (stories.length === 0) {
+
+    list.innerHTML = `
+
+      <div class="empty-story">
+
+        <span>♡</span>
+
+        <p>
+          كوني أول من يترك كلمة جميلة هنا.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
   }
+
+
+  list.innerHTML = "";
+
+
+  stories.forEach((story, index) => {
+
+    const card =
+      document.createElement("div");
+
+    card.className =
+      "story-card";
+
+
+    card.innerHTML = `
+
+      <p>
+        ${escapeHTML(story.text)}
+      </p>
+
+      <small>
+        مشاركة رقم ${stories.length - index}
+        · ${story.date}
+      </small>
+
+    `;
+
+
+    list.appendChild(card);
+
+  });
+
+}
+
+
+/* =========================================
+   حماية النصوص
+========================================= */
+
+function escapeHTML(text) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
+
 }
